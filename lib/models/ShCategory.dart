@@ -11,7 +11,16 @@ class ShCategory {
   String? image;
 
   // ignore: non_constant_identifier_names
-  ShCategory({this.count, this.description, this.id, this.isSelected, this.menu_order, this.name, this.parent, this.slug, this.image});
+  ShCategory(
+      {this.count,
+      this.description,
+      this.id,
+      this.isSelected,
+      this.menu_order,
+      this.name,
+      this.parent,
+      this.slug,
+      this.image});
 
   factory ShCategory.fromJson(Map<String, dynamic> json) {
     return ShCategory(
