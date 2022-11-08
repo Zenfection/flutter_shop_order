@@ -2,18 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 
-import 'package:shop_hop_prokit/screens/ShHomeScreen.dart';
-import 'package:shop_hop_prokit/screens/ShSignIn.dart';
+import 'package:shop_order/screens/ShHomeScreen.dart';
+import 'package:shop_order/screens/ShSignIn.dart';
 
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-import 'package:shop_hop_prokit/utils/widgets/ShSliderWidget.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
+import 'package:shop_order/utils/widgets/ShSliderWidget.dart';
 
-import 'package:shop_hop_prokit/utils/dots_indicator/src/dots_decorator.dart';
-import 'package:shop_hop_prokit/utils/dots_indicator/src/dots_indicator.dart';
+import 'package:shop_order/utils/dots_indicator/src/dots_decorator.dart';
+import 'package:shop_order/utils/dots_indicator/src/dots_indicator.dart';
 
 class ShWalkThroughScreen extends StatefulWidget {
   static var tag = "/ShWalkThroughScreen";

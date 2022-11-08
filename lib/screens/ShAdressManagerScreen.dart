@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShAddress.dart';
-import 'package:shop_hop_prokit/screens/ShAddNewAddress.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShAddress.dart';
+import 'package:shop_order/screens/ShAddNewAddress.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 class ShAddressManagerScreen extends StatefulWidget {
   static String tag = '/AddressManagerScreen';
@@ -66,7 +66,8 @@ class ShAddressManagerScreenState extends State<ShAddressManagerScreen> {
   Widget build(BuildContext context) {
     final listView = ListView.builder(
       physics: BouncingScrollPhysics(),
-      padding: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new),
+      padding: EdgeInsets.only(
+          top: spacing_standard_new, bottom: spacing_standard_new),
       itemBuilder: (item, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: spacing_standard_new),
@@ -117,12 +118,26 @@ class ShAddressManagerScreenState extends State<ShAddressManagerScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(addressList[index].first_name! + " " + addressList[index].last_name!, style: boldTextStyle()),
-                          Text(addressList[index].address.toString(), style: primaryTextStyle()),
-                          Text(addressList[index].city! + "," + addressList[index].state!, style: secondaryTextStyle()),
-                          Text(addressList[index].country! + "," + addressList[index].pinCode!, style: secondaryTextStyle()),
+                          Text(
+                              addressList[index].first_name! +
+                                  " " +
+                                  addressList[index].last_name!,
+                              style: boldTextStyle()),
+                          Text(addressList[index].address.toString(),
+                              style: primaryTextStyle()),
+                          Text(
+                              addressList[index].city! +
+                                  "," +
+                                  addressList[index].state!,
+                              style: secondaryTextStyle()),
+                          Text(
+                              addressList[index].country! +
+                                  "," +
+                                  addressList[index].pinCode!,
+                              style: secondaryTextStyle()),
                           16.height,
-                          Text(addressList[index].phone_number.toString(), style: primaryTextStyle()),
+                          Text(addressList[index].phone_number.toString(),
+                              style: primaryTextStyle()),
                         ],
                       ),
                     )
@@ -150,8 +165,10 @@ class ShAddressManagerScreenState extends State<ShAddressManagerScreen> {
                 }
               })
         ],
-        actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actionsIconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
         title: Text(sh_lbl_address_manager, style: boldTextStyle(size: 18)),
       ),
       body: Stack(
@@ -164,7 +181,10 @@ class ShAddressManagerScreenState extends State<ShAddressManagerScreen> {
               color: sh_colorPrimary,
               elevation: 0,
               padding: EdgeInsets.all(spacing_standard_new),
-              child: text("Save", textColor: sh_white, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+              child: text("Save",
+                  textColor: sh_white,
+                  fontFamily: fontMedium,
+                  fontSize: textSizeLargeMedium),
               onPressed: () {
                 Navigator.pop(context, selectedAddressIndex);
               },

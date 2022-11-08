@@ -1,5 +1,4 @@
-
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShConstant.dart';
 
 const bg_bottom_bar = "images/shophop/bg_bottom_bar.png";
 const card = "images/shophop/card.png";

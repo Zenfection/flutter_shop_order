@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShAttribute.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-import 'package:shop_hop_prokit/utils/flutter_rating_bar.dart';
-
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShAttribute.dart';
+import 'package:shop_order/models/ShProduct.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
+import 'package:shop_order/utils/flutter_rating_bar.dart';
 
 import 'ShProductDetail.dart';
 
@@ -89,33 +88,60 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 1)),
-                    child: Image.asset("images/shophop/img/products" + mProductModel[index].images![0].src!, fit: BoxFit.cover, height: width * 0.35, width: width * 0.29),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: sh_view_color, width: 1)),
+                    child: Image.asset(
+                        "images/shophop/img/products" +
+                            mProductModel[index].images![0].src!,
+                        fit: BoxFit.cover,
+                        height: width * 0.35,
+                        width: width * 0.29),
                   ),
                   SizedBox(width: 10),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(mProductModel[index].name!, style: boldTextStyle()),
+                        Text(mProductModel[index].name!,
+                            style: boldTextStyle()),
                         SizedBox(height: 4),
                         Row(
                           children: <Widget>[
-                            text(mProductModel[index].on_sale! ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
-                                textColor: sh_colorPrimary, fontFamily: fontMedium, fontSize: textSizeNormal),
+                            text(
+                                mProductModel[index].on_sale!
+                                    ? mProductModel[index]
+                                        .sale_price
+                                        .toString()
+                                        .toCurrencyFormat()
+                                    : mProductModel[index]
+                                        .price
+                                        .toString()
+                                        .toCurrencyFormat(),
+                                textColor: sh_colorPrimary,
+                                fontFamily: fontMedium,
+                                fontSize: textSizeNormal),
                             SizedBox(
                               width: spacing_control,
                             ),
                             Text(
-                              mProductModel[index].regular_price.toString().toCurrencyFormat()!,
-                              style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSmall, decoration: TextDecoration.lineThrough),
+                              mProductModel[index]
+                                  .regular_price
+                                  .toString()
+                                  .toCurrencyFormat()!,
+                              style: TextStyle(
+                                  color: sh_textColorSecondary,
+                                  fontFamily: fontRegular,
+                                  fontSize: textSizeSmall,
+                                  decoration: TextDecoration.lineThrough),
                             ),
                           ],
                         ),
                         SizedBox(
                           height: spacing_standard,
                         ),
-                        Row(children: colorWidget(mProductModel[index].attributes!)),
+                        Row(
+                            children:
+                                colorWidget(mProductModel[index].attributes!)),
                         SizedBox(height: 4),
                         Expanded(
                           child: Align(
@@ -124,7 +150,8 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 RatingBar(
-                                  initialRating: double.parse(mProductModel[index].average_rating!),
+                                  initialRating: double.parse(
+                                      mProductModel[index].average_rating!),
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   tapOnlyMode: true,
@@ -138,11 +165,16 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(spacing_control),
-                                  margin: EdgeInsets.only(right: spacing_standard),
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: context.cardColor),
+                                  margin:
+                                      EdgeInsets.only(right: spacing_standard),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: context.cardColor),
                                   child: Icon(
                                     Icons.favorite_border,
-                                    color: appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                                    color: appStore.isDarkModeOn
+                                        ? white
+                                        : sh_textColorPrimary,
                                     size: 16,
                                   ),
                                 )
@@ -172,11 +204,19 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           padding: EdgeInsets.all(spacing_middle),
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 9 / 14, crossAxisSpacing: spacing_middle, mainAxisSpacing: spacing_standard_new),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 9 / 14,
+              crossAxisSpacing: spacing_middle,
+              mainAxisSpacing: spacing_standard_new),
           itemBuilder: (_, index) {
             return InkWell(
               onTap: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ShProductDetail(product: mProductModel[index])));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ShProductDetail(product: mProductModel[index])));
               },
               child: Container(
                 child: Wrap(
@@ -189,9 +229,12 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                         children: <Widget>[
                           Container(
                             padding: EdgeInsets.all(1),
-                            decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 0.5)),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: sh_view_color, width: 0.5)),
                             child: Image.asset(
-                              "images/shophop/img/products" + mProductModel[index].images![0].src!,
+                              "images/shophop/img/products" +
+                                  mProductModel[index].images![0].src!,
                               fit: BoxFit.cover,
                               width: double.infinity,
                               height: double.infinity,
@@ -200,10 +243,14 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                           Container(
                             padding: EdgeInsets.all(spacing_control),
                             margin: EdgeInsets.all(spacing_standard),
-                            decoration: BoxDecoration(shape: BoxShape.circle, color: context.cardColor),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: context.cardColor),
                             child: Icon(
                               Icons.favorite_border,
-                              color: appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                              color: appStore.isDarkModeOn
+                                  ? white
+                                  : sh_textColorPrimary,
                               size: 16,
                             ),
                           )
@@ -213,21 +260,42 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
                     SizedBox(height: 2),
                     Row(
                       children: <Widget>[
-                        text(mProductModel[index].on_sale! ? mProductModel[index].sale_price.toString().toCurrencyFormat() : mProductModel[index].price.toString().toCurrencyFormat(),
-                            textColor: sh_colorPrimary, fontFamily: fontMedium, fontSize: textSizeNormal),
+                        text(
+                            mProductModel[index].on_sale!
+                                ? mProductModel[index]
+                                    .sale_price
+                                    .toString()
+                                    .toCurrencyFormat()
+                                : mProductModel[index]
+                                    .price
+                                    .toString()
+                                    .toCurrencyFormat(),
+                            textColor: sh_colorPrimary,
+                            fontFamily: fontMedium,
+                            fontSize: textSizeNormal),
                         SizedBox(
                           width: spacing_control,
                         ),
                         Text(
-                          mProductModel[index].regular_price.toString().toCurrencyFormat()!,
-                          style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSMedium, decoration: TextDecoration.lineThrough),
+                          mProductModel[index]
+                              .regular_price
+                              .toString()
+                              .toCurrencyFormat()!,
+                          style: TextStyle(
+                              color: sh_textColorSecondary,
+                              fontFamily: fontRegular,
+                              fontSize: textSizeSMedium,
+                              decoration: TextDecoration.lineThrough),
                         ),
                       ],
                     ),
                     SizedBox(height: spacing_middle),
                     Padding(
-                      padding: const EdgeInsets.only(left: 2.0, top: spacing_middle),
-                      child: Row(children: colorWidget(mProductModel[index].attributes!)),
+                      padding:
+                          const EdgeInsets.only(left: 2.0, top: spacing_middle),
+                      child: Row(
+                          children:
+                              colorWidget(mProductModel[index].attributes!)),
                     )
                   ],
                 ),
@@ -239,15 +307,18 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title, style: boldTextStyle(size: 18)),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actionsIconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.filter_list),
             onPressed: () => showMyBottomSheet(context),
           ),
           IconButton(
-            icon: Icon(isListViewSelected ? Icons.view_list : Icons.border_all, size: 24),
+            icon: Icon(isListViewSelected ? Icons.view_list : Icons.border_all,
+                size: 24),
             onPressed: () {
               setState(
                 () {
@@ -265,7 +336,11 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
             errorMsg.isEmpty
                 ? Center(
                     child: mProductModel.isNotEmpty
-                        ? Column(children: <Widget>[isListViewSelected ? listView : gridView, CircularProgressIndicator().visible(isLoadingMoreData)])
+                        ? Column(children: <Widget>[
+                            isListViewSelected ? listView : gridView,
+                            CircularProgressIndicator()
+                                .visible(isLoadingMoreData)
+                          ])
                         : CircularProgressIndicator().paddingAll(8),
                   )
                 : Center(child: Text(errorMsg)),
@@ -277,7 +352,8 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
 
   void showMyBottomSheet(context) {
     if (mProductModel.isEmpty) return;
-    void onSave(List<int> category, List<String> size, List<String> color, List<String> brand) {
+    void onSave(List<int> category, List<String> size, List<String> color,
+        List<String> brand) {
       Map request = {
         'category': category.toSet().toList(),
         'size': size.toSet().toList(),
@@ -292,7 +368,8 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
 
     Navigator.of(context).push(new MaterialPageRoute<Null>(
         builder: (BuildContext context) {
-          return FilterBottomSheetLayout(mProductAttributeModel: mProductAttributeModel, onSave: onSave);
+          return FilterBottomSheetLayout(
+              mProductAttributeModel: mProductAttributeModel, onSave: onSave);
         },
         fullscreenDialog: true));
   }
@@ -308,7 +385,11 @@ class ShViewAllProductScreenState extends State<ShViewAllProductScreen> {
       if (currentIndex < maxWidget) {
         list.add(Container(
           margin: EdgeInsets.only(right: spacing_middle),
-          child: Center(child: text(size.trim(), fontSize: textSizeMedium, textColor: sh_textColorPrimary, fontFamily: fontMedium)),
+          child: Center(
+              child: text(size.trim(),
+                  fontSize: textSizeMedium,
+                  textColor: sh_textColorPrimary,
+                  fontFamily: fontMedium)),
         ));
         currentIndex++;
       } else {
@@ -326,7 +407,8 @@ class FilterBottomSheetLayout extends StatefulWidget {
   ShAttributes? mProductAttributeModel;
   var onSave;
 
-  FilterBottomSheetLayout({Key? key, this.mProductAttributeModel, this.onSave}) : super(key: key);
+  FilterBottomSheetLayout({Key? key, this.mProductAttributeModel, this.onSave})
+      : super(key: key);
 
   @override
   FilterBottomSheetLayoutState createState() {
@@ -354,11 +436,16 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
           return Padding(
             padding: EdgeInsets.all(8.0),
             child: ChoiceChip(
-              label: text(categoryList![index].name, textColor: categoryList[index].isSelected! ? Colors.red : blackColor),
+              label: text(categoryList![index].name,
+                  textColor: categoryList[index].isSelected!
+                      ? Colors.red
+                      : blackColor),
               selected: categoryList[index].isSelected!,
               onSelected: (selected) {
                 setState(() {
-                  categoryList[index].isSelected! ? categoryList[index].isSelected = false : categoryList[index].isSelected = true;
+                  categoryList[index].isSelected!
+                      ? categoryList[index].isSelected = false
+                      : categoryList[index].isSelected = true;
                 });
               },
               elevation: 2,
@@ -379,13 +466,18 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
             child: InkWell(
               onTap: () {
                 setState(() {
-                  colorsList![index].isSelected ? colorsList[index].isSelected = false : colorsList[index].isSelected = true;
+                  colorsList![index].isSelected
+                      ? colorsList[index].isSelected = false
+                      : colorsList[index].isSelected = true;
                 });
               },
               child: Container(
                 padding: EdgeInsets.all(7),
                 margin: EdgeInsets.only(right: spacing_standard_new),
-                decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: getColorFromHex(colorsList![index].name!)),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: sh_textColorPrimary, width: 0.5),
+                    color: getColorFromHex(colorsList![index].name!)),
                 child: colorsList[index].isSelected
                     ? Icon(
                         Icons.done,
@@ -406,11 +498,16 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ChoiceChip(
-              label: text(sizesList![index].name, textColor: categoryList![index].isSelected! ? Colors.red : blackColor),
+              label: text(sizesList![index].name,
+                  textColor: categoryList![index].isSelected!
+                      ? Colors.red
+                      : blackColor),
               selected: sizesList[index].isSelected,
               onSelected: (selected) {
                 setState(() {
-                  sizesList[index].isSelected ? sizesList[index].isSelected = false : sizesList[index].isSelected = true;
+                  sizesList[index].isSelected
+                      ? sizesList[index].isSelected = false
+                      : sizesList[index].isSelected = true;
                 });
               },
               elevation: 2,
@@ -428,11 +525,15 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: ChoiceChip(
-              label: text(brandsList![index].name, textColor: brandsList[index].isSelected ? Colors.red : blackColor),
+              label: text(brandsList![index].name,
+                  textColor:
+                      brandsList[index].isSelected ? Colors.red : blackColor),
               selected: brandsList[index].isSelected,
               onSelected: (selected) {
                 setState(() {
-                  brandsList[index].isSelected ? brandsList[index].isSelected = false : brandsList[index].isSelected = true;
+                  brandsList[index].isSelected
+                      ? brandsList[index].isSelected = false
+                      : brandsList[index].isSelected = true;
                 });
               },
               elevation: 2,
@@ -445,14 +546,20 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: sh_colorPrimary,
-        title: text(sh_lbl_filter, textColor: sh_white, fontSize: textSizeNormal, fontFamily: fontMedium),
+        title: text(sh_lbl_filter,
+            textColor: sh_white,
+            fontSize: textSizeNormal,
+            fontFamily: fontMedium),
         iconTheme: IconThemeData(color: sh_white),
         actions: <Widget>[
           InkWell(
               child: Container(
                   alignment: Alignment.centerRight,
                   padding: EdgeInsets.only(right: spacing_middle),
-                  child: text(sh_lbl_apply, textColor: sh_white, fontFamily: fontMedium, fontSize: textSizeLargeMedium)),
+                  child: text(sh_lbl_apply,
+                      textColor: sh_white,
+                      fontFamily: fontMedium,
+                      fontSize: textSizeLargeMedium)),
               onTap: () {
                 finish(context);
               })
@@ -463,26 +570,46 @@ class FilterBottomSheetLayoutState extends State<FilterBottomSheetLayout> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(left: spacing_standard_new, top: spacing_standard_new),
-              child: text(sh_lbl_categories, textColor: appStore.isDarkModeOn ? white : sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+              padding: EdgeInsets.only(
+                  left: spacing_standard_new, top: spacing_standard_new),
+              child: text(sh_lbl_categories,
+                  textColor:
+                      appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                  fontFamily: fontMedium,
+                  fontSize: textSizeLargeMedium),
             ),
             8.height,
             Container(child: productCategoryListView, height: 50),
             Padding(
-              padding: EdgeInsets.only(left: spacing_standard_new, top: spacing_standard_new),
-              child: text(sh_lbl_colors, textColor: appStore.isDarkModeOn ? white : sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+              padding: EdgeInsets.only(
+                  left: spacing_standard_new, top: spacing_standard_new),
+              child: text(sh_lbl_colors,
+                  textColor:
+                      appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                  fontFamily: fontMedium,
+                  fontSize: textSizeLargeMedium),
             ),
             8.height,
             Container(child: productColorsListView, height: 50),
             Padding(
-              padding: EdgeInsets.only(left: spacing_standard_new, top: spacing_standard_new),
-              child: text(sh_lbl_size, textColor: appStore.isDarkModeOn ? white : sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+              padding: EdgeInsets.only(
+                  left: spacing_standard_new, top: spacing_standard_new),
+              child: text(sh_lbl_size,
+                  textColor:
+                      appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                  fontFamily: fontMedium,
+                  fontSize: textSizeLargeMedium),
             ),
             8.height,
             Container(child: productSizeListView, height: 50),
             Padding(
-              padding: EdgeInsets.only(left: spacing_standard_new, top: spacing_standard_new),
-              child: text(sh_lbl_brands, textColor: appStore.isDarkModeOn ? white : sh_textColorPrimary, fontFamily: fontMedium, fontSize: textSizeLargeMedium),
+              padding: EdgeInsets.only(
+                  left: spacing_standard_new, top: spacing_standard_new),
+              child: text(sh_lbl_brands,
+                  textColor:
+                      appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                  fontFamily: fontMedium,
+                  fontSize: textSizeLargeMedium),
             ),
             8.height,
             Container(child: productBrandsListView, height: 50)

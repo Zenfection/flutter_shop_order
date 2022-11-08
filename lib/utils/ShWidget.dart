@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
-import 'package:shop_hop_prokit/screens/ShCartScreen.dart';
-import 'package:shop_hop_prokit/screens/ShProductDetail.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/dots_indicator/src/dots_decorator.dart';
-import 'package:shop_hop_prokit/utils/dots_indicator/src/dots_indicator.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShProduct.dart';
+import 'package:shop_order/screens/ShCartScreen.dart';
+import 'package:shop_order/screens/ShProductDetail.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/dots_indicator/src/dots_decorator.dart';
+import 'package:shop_order/utils/dots_indicator/src/dots_indicator.dart';
 
 import 'ShConstant.dart';
 import 'ShStrings.dart';
 
-var textFiledBorderStyle = OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(width: 0, color: sh_editText_background));
+var textFiledBorderStyle = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(32.0),
+    borderSide: BorderSide(width: 0, color: sh_editText_background));
 
 InputDecoration formFieldDecoration(String hintText) {
   return InputDecoration(
@@ -51,29 +53,51 @@ class ProductHorizontalList extends StatelessWidget {
               width: width * 0.4,
               child: InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ShProductDetail(product: list[index])));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ShProductDetail(product: list[index])));
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Image.asset("images/shophop/img/products" + list[index].images![0].src!, width: double.infinity, height: 200, fit: BoxFit.cover),
+                    Image.asset(
+                        "images/shophop/img/products" +
+                            list[index].images![0].src!,
+                        width: double.infinity,
+                        height: 200,
+                        fit: BoxFit.cover),
                     SizedBox(height: spacing_standard),
                     Expanded(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Text(list[index].name!, maxLines: 2, style: boldTextStyle()).expand(),
+                          Text(list[index].name!,
+                                  maxLines: 2, style: boldTextStyle())
+                              .expand(),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                list[index].regular_price.toString().toCurrencyFormat()!,
+                                list[index]
+                                    .regular_price
+                                    .toString()
+                                    .toCurrencyFormat()!,
                                 style: secondaryTextStyle(),
                               ),
                               SizedBox(width: spacing_control_half),
                               text(
-                                list[index].on_sale! ? list[index].sale_price.toString().toCurrencyFormat() : list[index].price.toString().toCurrencyFormat(),
+                                list[index].on_sale!
+                                    ? list[index]
+                                        .sale_price
+                                        .toString()
+                                        .toCurrencyFormat()
+                                    : list[index]
+                                        .price
+                                        .toString()
+                                        .toCurrencyFormat(),
                                 textColor: sh_colorPrimary,
                                 fontFamily: fontMedium,
                                 fontSize: textSizeMedium,
@@ -92,7 +116,8 @@ class ProductHorizontalList extends StatelessWidget {
   }
 }
 
-Widget networkImage(String image, {double? aWidth, double? aHeight, var fit = BoxFit.fill}) {
+Widget networkImage(String image,
+    {double? aWidth, double? aHeight, var fit = BoxFit.fill}) {
   return Image.asset(image, width: aWidth, height: aHeight, fit: BoxFit.fill);
 }
 
@@ -138,7 +163,11 @@ class TopBarState extends State<TopBar> {
                 finish(context);
               },
             ),
-            Center(child: text(widget.titleName, textColor: sh_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontBold))
+            Center(
+                child: text(widget.titleName,
+                    textColor: sh_textColorPrimary,
+                    fontSize: textSizeNormal,
+                    fontFamily: fontBold))
           ],
         ),
       ),
@@ -217,7 +246,12 @@ Widget ring(String description) {
         ),
       ),
       SizedBox(height: 16),
-      text(description, textColor: sh_textColorPrimary, fontSize: textSizeNormal, fontFamily: fontSemibold, isCentered: true, maxLine: 2)
+      text(description,
+          textColor: sh_textColorPrimary,
+          fontSize: textSizeNormal,
+          fontFamily: fontSemibold,
+          isCentered: true,
+          maxLine: 2)
     ],
   );
 }
@@ -261,7 +295,15 @@ class PinEntryTextField extends StatefulWidget {
   final isTextObscure;
   final showFieldAsBox;
 
-  PinEntryTextField({this.lastPin, this.fields: 4, this.onSubmit, this.fieldWidth: 40.0, this.fontSize: 20.0, this.isTextObscure: false, this.showFieldAsBox: false}) : assert(fields > 0);
+  PinEntryTextField(
+      {this.lastPin,
+      this.fields: 4,
+      this.onSubmit,
+      this.fieldWidth: 40.0,
+      this.fontSize: 20.0,
+      this.isTextObscure: false,
+      this.showFieldAsBox: false})
+      : assert(fields > 0);
 
   @override
   State createState() {
@@ -281,7 +323,8 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
     super.initState();
     _pin = List<String?>.filled(widget.fields, null, growable: false);
     _focusNodes = List<FocusNode?>.filled(widget.fields, null, growable: false);
-    _textControllers = List<TextEditingController?>.filled(widget.fields, null, growable: false);
+    _textControllers = List<TextEditingController?>.filled(widget.fields, null,
+        growable: false);
     WidgetsBinding.instance!.addPostFrameCallback((_) {
       setState(() {
         if (widget.lastPin != null) {
@@ -309,11 +352,15 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
       FocusScope.of(context).requestFocus(_focusNodes[0]);
     }
 
-    return Row(mainAxisAlignment: MainAxisAlignment.center, verticalDirection: VerticalDirection.down, children: textFields);
+    return Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        verticalDirection: VerticalDirection.down,
+        children: textFields);
   }
 
   void clearTextFields() {
-    _textControllers.forEach((TextEditingController? tEditController) => tEditController!.clear());
+    _textControllers.forEach(
+        (TextEditingController? tEditController) => tEditController!.clear());
     _pin.clear();
   }
 
@@ -340,10 +387,18 @@ class PinEntryTextFieldState extends State<PinEntryTextField> {
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
         maxLength: 1,
-        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontFamily: fontMedium, fontSize: widget.fontSize),
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: fontMedium,
+            fontSize: widget.fontSize),
         focusNode: _focusNodes[i],
         obscureText: widget.isTextObscure,
-        decoration: InputDecoration(counterText: "", border: widget.showFieldAsBox ? OutlineInputBorder(borderSide: BorderSide(width: 2.0)) : null),
+        decoration: InputDecoration(
+            counterText: "",
+            border: widget.showFieldAsBox
+                ? OutlineInputBorder(borderSide: BorderSide(width: 2.0))
+                : null),
         onChanged: (String str) {
           setState(() {
             _pin[i] = str;
@@ -401,8 +456,12 @@ Widget horizontalHeading(var title, {bool showViewAll = true, var callback}) {
             ? GestureDetector(
                 onTap: callback,
                 child: Container(
-                  padding: EdgeInsets.only(left: spacing_standard_new, top: spacing_control, bottom: spacing_control),
-                  child: Text(sh_lbl_view_all, style: boldTextStyle(color: sh_textColorSecondary)),
+                  padding: EdgeInsets.only(
+                      left: spacing_standard_new,
+                      top: spacing_control,
+                      bottom: spacing_control),
+                  child: Text(sh_lbl_view_all,
+                      style: boldTextStyle(color: sh_textColorSecondary)),
                 ),
               )
             : Container()
@@ -452,7 +511,10 @@ List<Widget> colorWidget(List<Attribute> attributes) {
         list.add(Container(
           padding: EdgeInsets.all(6),
           margin: EdgeInsets.only(right: spacing_middle),
-          decoration: BoxDecoration(shape: BoxShape.rectangle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: getColorFromHex(color)),
+          decoration: BoxDecoration(
+              shape: BoxShape.rectangle,
+              border: Border.all(color: sh_textColorPrimary, width: 0.5),
+              color: getColorFromHex(color)),
         ));
         currentIndex++;
       } else {
@@ -476,7 +538,8 @@ Widget cartIcon(context, cartCount) {
           height: 40,
           margin: EdgeInsets.only(right: spacing_standard_new),
           padding: EdgeInsets.all(spacing_standard),
-          child: SvgPicture.asset(sh_ic_cart, color: appStore.isDarkModeOn ? white : black),
+          child: SvgPicture.asset(sh_ic_cart,
+              color: appStore.isDarkModeOn ? white : black),
         ),
         cartCount > 0
             ? Align(
@@ -484,8 +547,10 @@ Widget cartIcon(context, cartCount) {
                 child: Container(
                   margin: EdgeInsets.only(top: spacing_control),
                   padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.red),
-                  child: text(cartCount.toString(), textColor: sh_white, fontSize: textSizeSmall),
+                  decoration:
+                      BoxDecoration(shape: BoxShape.circle, color: Colors.red),
+                  child: text(cartCount.toString(),
+                      textColor: sh_white, fontSize: textSizeSmall),
                 ),
               )
             : Container()
@@ -502,19 +567,18 @@ Widget headingText(String content) {
   return Text(content, style: primaryTextStyle());
 }
 
-
 Widget text(
-    String? text, {
-      var fontSize = textSizeLargeMedium,
-      Color? textColor,
-      var fontFamily,
-      var isCentered = false,
-      var maxLine = 1,
-      var latterSpacing = 0.5,
-      bool textAllCaps = false,
-      var isLongText = false,
-      bool lineThrough = false,
-    }) {
+  String? text, {
+  var fontSize = textSizeLargeMedium,
+  Color? textColor,
+  var fontFamily,
+  var isCentered = false,
+  var maxLine = 1,
+  var latterSpacing = 0.5,
+  bool textAllCaps = false,
+  var isLongText = false,
+  bool lineThrough = false,
+}) {
   return Text(
     textAllCaps ? text!.toUpperCase() : text!,
     textAlign: isCentered ? TextAlign.center : TextAlign.start,
@@ -526,7 +590,8 @@ Widget text(
       color: textColor ?? appStore.textSecondaryColor,
       height: 1.5,
       letterSpacing: latterSpacing,
-      decoration: lineThrough ? TextDecoration.lineThrough : TextDecoration.none,
+      decoration:
+          lineThrough ? TextDecoration.lineThrough : TextDecoration.none,
     ),
   );
 }
@@ -535,15 +600,22 @@ void changeStatusColor(Color color) async {
   setStatusBarColor(color);
 }
 
-BoxDecoration boxDecoration({double radius = 2, Color color = Colors.transparent, Color? bgColor, var showShadow = false}) {
+BoxDecoration boxDecoration(
+    {double radius = 2,
+    Color color = Colors.transparent,
+    Color? bgColor,
+    var showShadow = false}) {
   return BoxDecoration(
     color: bgColor ?? appStore.scaffoldBackground,
-    boxShadow: showShadow ? defaultBoxShadow(shadowColor: shadowColorGlobal) : [BoxShadow(color: Colors.transparent)],
+    boxShadow: showShadow
+        ? defaultBoxShadow(shadowColor: shadowColorGlobal)
+        : [BoxShadow(color: Colors.transparent)],
     border: Border.all(color: color),
     borderRadius: BorderRadius.all(Radius.circular(radius)),
   );
 }
 
-Widget? Function(BuildContext, String) placeholderWidgetFn() => (_, s) => placeholderWidget();
+Widget? Function(BuildContext, String) placeholderWidgetFn() =>
+    (_, s) => placeholderWidget();
 
 Widget placeholderWidget() => Image.asset('images/grey.jpg', fit: BoxFit.cover);

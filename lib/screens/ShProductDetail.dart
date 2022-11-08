@@ -3,15 +3,15 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
-import 'package:shop_hop_prokit/models/ShReview.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-import 'package:shop_hop_prokit/utils/rating_bar.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShProduct.dart';
+import 'package:shop_order/models/ShReview.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
+import 'package:shop_order/utils/rating_bar.dart';
 
 // ignore: must_be_immutable
 class ShProductDetail extends StatefulWidget {
@@ -55,7 +55,8 @@ class ShProductDetailState extends State<ShProductDetail> {
   }
 
   Future<List<ShReview>> loadProducts() async {
-    String jsonString = await loadContentAsset('assets/shophop_data/reviews.json');
+    String jsonString =
+        await loadContentAsset('assets/shophop_data/reviews.json');
     final jsonResponse = json.decode(jsonString);
     return (jsonResponse as List).map((i) => ShReview.fromJson(i)).toList();
   }
@@ -102,7 +103,12 @@ class ShProductDetailState extends State<ShProductDetail> {
       child: PageView.builder(
         itemCount: widget.product!.images!.length,
         itemBuilder: (context, index) {
-          return Image.asset("images/shophop/img/products" + widget.product!.images![index].src!, width: width, height: width * 1.05, fit: BoxFit.cover);
+          return Image.asset(
+              "images/shophop/img/products" +
+                  widget.product!.images![index].src!,
+              width: width,
+              height: width * 1.05,
+              fit: BoxFit.cover);
         },
         onPageChanged: (index) {
           position = index;
@@ -120,7 +126,9 @@ class ShProductDetailState extends State<ShProductDetail> {
             children: [
               Text(widget.product!.name!, style: boldTextStyle(size: 18)),
               text(
-                widget.product!.on_sale! ? widget.product!.sale_price.toCurrencyFormat() : widget.product!.price.toCurrencyFormat(),
+                widget.product!.on_sale!
+                    ? widget.product!.sale_price.toCurrencyFormat()
+                    : widget.product!.price.toCurrencyFormat(),
                 textColor: sh_colorPrimary,
                 fontSize: textSizeXNormal,
                 fontFamily: fontMedium,
@@ -136,9 +144,11 @@ class ShProductDetailState extends State<ShProductDetail> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Container(
-                      padding: EdgeInsets.only(left: 12, right: 12, top: 0, bottom: 0),
+                      padding: EdgeInsets.only(
+                          left: 12, right: 12, top: 0, bottom: 0),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(spacing_standard_new)),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(spacing_standard_new)),
                         color: double.parse(widget.product!.average_rating!) < 2
                             ? Colors.red
                             : double.parse(widget.product!.average_rating!) < 4
@@ -188,8 +198,13 @@ class ShProductDetailState extends State<ShProductDetail> {
           child: Container(
             padding: EdgeInsets.all(7),
             margin: EdgeInsets.only(right: spacing_xlarge),
-            decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: sh_textColorPrimary, width: 0.5), color: getColorFromHex(colorList[index])),
-            child: selectedColor == index ? Icon(Icons.done, color: sh_white, size: 12) : Container(),
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: sh_textColorPrimary, width: 0.5),
+                color: getColorFromHex(colorList[index])),
+            child: selectedColor == index
+                ? Icon(Icons.done, color: sh_white, size: 12)
+                : Container(),
           ),
         );
       },
@@ -263,9 +278,11 @@ class ShProductDetailState extends State<ShProductDetail> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.only(left: 12, right: 12, top: 1, bottom: 1),
+                    padding:
+                        EdgeInsets.only(left: 12, right: 12, top: 1, bottom: 1),
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(spacing_standard_new)),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(spacing_standard_new)),
                         color: list[index].rating! < 2
                             ? Colors.red
                             : list[index].rating! < 4
@@ -273,7 +290,8 @@ class ShProductDetailState extends State<ShProductDetail> {
                                 : Colors.green),
                     child: Row(
                       children: <Widget>[
-                        text(list[index].rating.toString(), textColor: sh_white),
+                        text(list[index].rating.toString(),
+                            textColor: sh_white),
                         SizedBox(width: spacing_control_half),
                         Icon(Icons.star, color: sh_white, size: 12),
                       ],
@@ -293,7 +311,12 @@ class ShProductDetailState extends State<ShProductDetail> {
                 ],
               ),
               8.height,
-              Image.asset("images/shophop/img/products" + widget.product!.images![0].src!, width: 90, height: 110, fit: BoxFit.fill),
+              Image.asset(
+                  "images/shophop/img/products" +
+                      widget.product!.images![0].src!,
+                  width: 90,
+                  height: 110,
+                  fit: BoxFit.fill),
               8.height,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -303,10 +326,21 @@ class ShProductDetailState extends State<ShProductDetail> {
                       Container(
                         padding: EdgeInsets.all(4),
                         margin: EdgeInsets.only(right: spacing_standard),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: list[index].verified! ? Colors.green : Colors.grey.withOpacity(0.5)),
-                        child: Icon(list[index].verified! ? Icons.done : Icons.clear, color: sh_white, size: 14),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: list[index].verified!
+                                ? Colors.green
+                                : Colors.grey.withOpacity(0.5)),
+                        child: Icon(
+                            list[index].verified! ? Icons.done : Icons.clear,
+                            color: sh_white,
+                            size: 14),
                       ),
-                      Text(list[index].verified! ? sh_lbl_verified : sh_lbl_not_verified, style: primaryTextStyle())
+                      Text(
+                          list[index].verified!
+                              ? sh_lbl_verified
+                              : sh_lbl_not_verified,
+                          style: primaryTextStyle())
                     ],
                   ),
                   text("26 June 2019", fontSize: textSizeMedium)
@@ -327,12 +361,14 @@ class ShProductDetailState extends State<ShProductDetail> {
             Stack(
               alignment: Alignment.bottomRight,
               children: <Widget>[
-                Text(widget.product!.description!, maxLines: 3, style: secondaryTextStyle()),
+                Text(widget.product!.description!,
+                    maxLines: 3, style: secondaryTextStyle()),
                 InkWell(
                   child: Container(
                     padding: EdgeInsets.all(spacing_control_half),
                     color: context.cardColor,
-                    child: Text(isExpanded ? "Read Less" : "Read More", style: primaryTextStyle()),
+                    child: Text(isExpanded ? "Read Less" : "Read More",
+                        style: primaryTextStyle()),
                   ),
                   onTap: () {
                     isExpanded = !isExpanded;
@@ -347,16 +383,21 @@ class ShProductDetailState extends State<ShProductDetail> {
                 Expanded(
                   child: Container(
                     height: 40,
-                    decoration: BoxDecoration(border: Border.all(color: sh_view_color)),
-                    padding: EdgeInsets.only(left: spacing_middle, right: spacing_middle),
+                    decoration:
+                        BoxDecoration(border: Border.all(color: sh_view_color)),
+                    padding: EdgeInsets.only(
+                        left: spacing_middle, right: spacing_middle),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Expanded(
                           child: TextField(
-                            style: TextStyle(fontSize: textSizeMedium, color: sh_textColorPrimary),
-                            decoration: InputDecoration(border: InputBorder.none, hintText: "Pincode"),
+                            style: TextStyle(
+                                fontSize: textSizeMedium,
+                                color: sh_textColorPrimary),
+                            decoration: InputDecoration(
+                                border: InputBorder.none, hintText: "Pincode"),
                             keyboardType: TextInputType.number,
                             textAlign: TextAlign.start,
                           ),
@@ -365,9 +406,11 @@ class ShProductDetailState extends State<ShProductDetail> {
                           width: 1,
                           height: 25,
                           color: sh_view_color,
-                          margin: EdgeInsets.only(left: spacing_middle, right: spacing_middle),
+                          margin: EdgeInsets.only(
+                              left: spacing_middle, right: spacing_middle),
                         ),
-                        Text("Check Availability", style: secondaryTextStyle(size: 12))
+                        Text("Check Availability",
+                            style: secondaryTextStyle(size: 12))
                       ],
                     ),
                   ),
@@ -379,8 +422,10 @@ class ShProductDetailState extends State<ShProductDetail> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(sh_lbl_delivered_by, style: primaryTextStyle(size: 14)),
-                    Text("25 June, Monday", style: secondaryTextStyle(size: 12)),
+                    Text(sh_lbl_delivered_by,
+                        style: primaryTextStyle(size: 14)),
+                    Text("25 June, Monday",
+                        style: secondaryTextStyle(size: 12)),
                   ],
                 )
               ],
@@ -388,7 +433,9 @@ class ShProductDetailState extends State<ShProductDetail> {
             SizedBox(height: spacing_standard_new),
             Text(sh_lbl_colors, style: boldTextStyle()),
             Container(height: 50, child: colors),
-            sizeList.isNotEmpty ? Text(sh_lbl_size, style: boldTextStyle()) : SizedBox(),
+            sizeList.isNotEmpty
+                ? Text(sh_lbl_size, style: boldTextStyle())
+                : SizedBox(),
             Container(height: 50, child: sizes)
           ],
         ),
@@ -404,16 +451,21 @@ class ShProductDetailState extends State<ShProductDetail> {
                 Expanded(
                   child: Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.only(top: spacing_control, bottom: spacing_control),
+                      padding: EdgeInsets.only(
+                          top: spacing_control, bottom: spacing_control),
                       color: context.cardColor,
                       child: Text(sh_lbl_length, style: primaryTextStyle())),
                 ),
                 Expanded(
                   child: Container(
                       alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.only(top: spacing_control, bottom: spacing_control, left: spacing_large),
+                      padding: EdgeInsets.only(
+                          top: spacing_control,
+                          bottom: spacing_control,
+                          left: spacing_large),
                       color: context.cardColor,
-                      child: Text(widget.product!.dimensions!.length! + " cm", style: primaryTextStyle())),
+                      child: Text(widget.product!.dimensions!.length! + " cm",
+                          style: primaryTextStyle())),
                 )
               ],
             ),
@@ -422,15 +474,20 @@ class ShProductDetailState extends State<ShProductDetail> {
               children: <Widget>[
                 Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard),
+                        padding: EdgeInsets.only(
+                            top: spacing_standard, bottom: spacing_standard),
                         color: context.cardColor,
                         child: Text(sh_lbl_height, style: primaryTextStyle()))
                     .expand(),
                 Container(
                         alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard, left: spacing_large),
+                        padding: EdgeInsets.only(
+                            top: spacing_standard,
+                            bottom: spacing_standard,
+                            left: spacing_large),
                         color: context.cardColor,
-                        child: Text(widget.product!.dimensions!.height! + " cm", style: primaryTextStyle()))
+                        child: Text(widget.product!.dimensions!.height! + " cm",
+                            style: primaryTextStyle()))
                     .expand()
               ],
             ),
@@ -439,15 +496,20 @@ class ShProductDetailState extends State<ShProductDetail> {
               children: <Widget>[
                 Container(
                         alignment: Alignment.center,
-                        padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard),
+                        padding: EdgeInsets.only(
+                            top: spacing_standard, bottom: spacing_standard),
                         color: context.cardColor,
                         child: Text(sh_lbl_width, style: primaryTextStyle()))
                     .expand(),
                 Container(
                         alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard, left: spacing_large),
+                        padding: EdgeInsets.only(
+                            top: spacing_standard,
+                            bottom: spacing_standard,
+                            left: spacing_large),
                         color: context.cardColor,
-                        child: Text(widget.product!.dimensions!.width! + " cm", style: primaryTextStyle()))
+                        child: Text(widget.product!.dimensions!.width! + " cm",
+                            style: primaryTextStyle()))
                     .expand()
               ],
             ),
@@ -459,13 +521,17 @@ class ShProductDetailState extends State<ShProductDetail> {
                 children: <Widget>[
                   Container(
                           alignment: Alignment.center,
-                          padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard),
+                          padding: EdgeInsets.only(
+                              top: spacing_standard, bottom: spacing_standard),
                           color: context.cardColor,
                           child: Text(sh_lbl_brand, style: primaryTextStyle()))
                       .expand(),
                   Container(
                           alignment: Alignment.centerLeft,
-                          padding: EdgeInsets.only(top: spacing_standard, bottom: spacing_standard, left: spacing_large),
+                          padding: EdgeInsets.only(
+                              top: spacing_standard,
+                              bottom: spacing_standard,
+                              left: spacing_large),
                           color: context.cardColor,
                           child: Text(bands, style: primaryTextStyle()))
                       .expand()
@@ -492,14 +558,18 @@ class ShProductDetailState extends State<ShProductDetail> {
                   Container(
                     height: width * 0.33,
                     width: width * 0.33,
-                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.grey.withOpacity(0.1)),
+                    decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey.withOpacity(0.1)),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        reviewText("3.0", size: 28.0, fontSize: 30.0, fontFamily: fontBold),
-                        text(list.length.toString() + " Reviews", fontSize: textSizeMedium),
+                        reviewText("3.0",
+                            size: 28.0, fontSize: 30.0, fontFamily: fontBold),
+                        text(list.length.toString() + " Reviews",
+                            fontSize: textSizeMedium),
                       ],
                     ),
                   ),
@@ -507,31 +577,46 @@ class ShProductDetailState extends State<ShProductDetail> {
                   Column(
                     children: <Widget>[
                       Row(
-                        children: <Widget>[reviewText(5), ratingProgress(fiveStar, Colors.green)],
+                        children: <Widget>[
+                          reviewText(5),
+                          ratingProgress(fiveStar, Colors.green)
+                        ],
                       ),
                       SizedBox(
                         height: spacing_control_half,
                       ),
                       Row(
-                        children: <Widget>[reviewText(4), ratingProgress(fourStar, Colors.green)],
+                        children: <Widget>[
+                          reviewText(4),
+                          ratingProgress(fourStar, Colors.green)
+                        ],
                       ),
                       SizedBox(
                         height: spacing_control_half,
                       ),
                       Row(
-                        children: <Widget>[reviewText(3), ratingProgress(threeStar, Colors.amber)],
+                        children: <Widget>[
+                          reviewText(3),
+                          ratingProgress(threeStar, Colors.amber)
+                        ],
                       ),
                       SizedBox(
                         height: spacing_control_half,
                       ),
                       Row(
-                        children: <Widget>[reviewText(2), ratingProgress(twoStar, Colors.amber)],
+                        children: <Widget>[
+                          reviewText(2),
+                          ratingProgress(twoStar, Colors.amber)
+                        ],
                       ),
                       SizedBox(
                         height: spacing_control_half,
                       ),
                       Row(
-                        children: <Widget>[reviewText(1), ratingProgress(oneStar, Colors.red)],
+                        children: <Widget>[
+                          reviewText(1),
+                          ratingProgress(oneStar, Colors.red)
+                        ],
                       )
                     ],
                   ).expand()
@@ -547,8 +632,13 @@ class ShProductDetailState extends State<ShProductDetail> {
                 Text(sh_lbl_reviews, style: boldTextStyle()),
                 MaterialButton(
                   textColor: sh_colorPrimary,
-                  padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: 0, bottom: 0),
-                  child: text(sh_lbl_rate_now, fontSize: textSizeMedium, textColor: sh_colorPrimary),
+                  padding: EdgeInsets.only(
+                      left: spacing_standard_new,
+                      right: spacing_standard_new,
+                      top: 0,
+                      bottom: 0),
+                  child: text(sh_lbl_rate_now,
+                      fontSize: textSizeMedium, textColor: sh_colorPrimary),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(spacing_large),
                     side: BorderSide(color: sh_colorPrimary),
@@ -566,17 +656,29 @@ class ShProductDetailState extends State<ShProductDetail> {
     );
     var bottomButtons = Container(
       height: 50,
-      decoration: BoxDecoration(boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.7), blurRadius: 16, spreadRadius: 2, offset: Offset(3, 1))], color: sh_white),
+      decoration: BoxDecoration(boxShadow: [
+        BoxShadow(
+            color: Colors.grey.withOpacity(0.7),
+            blurRadius: 16,
+            spreadRadius: 2,
+            offset: Offset(3, 1))
+      ], color: sh_white),
       child: Row(
         children: <Widget>[
           Container(
-            child: Text(sh_lbl_add_to_cart, style: boldTextStyle(color: appStore.isDarkModeOn ? white : sh_textColorPrimary)),
+            child: Text(sh_lbl_add_to_cart,
+                style: boldTextStyle(
+                    color:
+                        appStore.isDarkModeOn ? white : sh_textColorPrimary)),
             color: context.cardColor,
             alignment: Alignment.center,
             height: double.infinity,
           ).expand(),
           Container(
-            child: text(sh_lbl_buy_now, textColor: sh_white, fontSize: textSizeLargeMedium, fontFamily: fontMedium),
+            child: text(sh_lbl_buy_now,
+                textColor: sh_white,
+                fontSize: textSizeLargeMedium,
+                fontFamily: fontMedium),
             color: sh_colorPrimary,
             alignment: Alignment.center,
             height: double.infinity,
@@ -592,8 +694,10 @@ class ShProductDetailState extends State<ShProductDetail> {
           DefaultTabController(
             length: 3,
             child: NestedScrollView(
-              headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-                changeStatusColor(innerBoxIsScrolled ? Colors.white : Colors.transparent);
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                changeStatusColor(
+                    innerBoxIsScrolled ? Colors.white : Colors.transparent);
                 return <Widget>[
                   SliverAppBar(
                     expandedHeight: 460,
@@ -601,21 +705,35 @@ class ShProductDetailState extends State<ShProductDetail> {
                     pinned: true,
                     titleSpacing: 0,
                     backgroundColor: context.cardColor,
-                    iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-                    actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+                    iconTheme: IconThemeData(
+                        color: appStore.isDarkModeOn
+                            ? white
+                            : sh_textColorPrimary),
+                    actionsIconTheme: IconThemeData(
+                        color: appStore.isDarkModeOn
+                            ? white
+                            : sh_textColorPrimary),
                     actions: <Widget>[
                       Container(
                         padding: EdgeInsets.all(spacing_standard),
                         margin: EdgeInsets.only(right: spacing_standard_new),
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.grey.withOpacity(0.1)),
-                        child: Icon(Icons.favorite_border, color: appStore.isDarkModeOn ? white : sh_textColorPrimary, size: 18),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.grey.withOpacity(0.1)),
+                        child: Icon(Icons.favorite_border,
+                            color: appStore.isDarkModeOn
+                                ? white
+                                : sh_textColorPrimary,
+                            size: 18),
                       ),
                       cartIcon(context, 3)
                     ],
-                    title: Text(innerBoxIsScrolled ? widget.product!.name! : "", style: boldTextStyle()),
+                    title: Text(innerBoxIsScrolled ? widget.product!.name! : "",
+                        style: boldTextStyle()),
                     flexibleSpace: FlexibleSpaceBar(
                       background: Container(
-                        color: appStore.isDarkModeOn ? scaffoldDarkColor : white,
+                        color:
+                            appStore.isDarkModeOn ? scaffoldDarkColor : white,
                         child: Column(
                           children: <Widget>[
                             sliderImages,
@@ -658,7 +776,11 @@ class ShProductDetailState extends State<ShProductDetail> {
     );
   }
 
-  Widget reviewText(rating, {size = 15.0, fontSize = textSizeLargeMedium, fontFamily = fontMedium, textColor = sh_textColorPrimary}) {
+  Widget reviewText(rating,
+      {size = 15.0,
+      fontSize = textSizeLargeMedium,
+      fontFamily = fontMedium,
+      textColor = sh_textColorPrimary}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -699,10 +821,14 @@ class ShProductDetailState extends State<ShProductDetail> {
                   Container(
                     alignment: Alignment.center,
                     width: MediaQuery.of(context).size.width - 40,
-                    decoration: boxDecoration(bgColor: context.cardColor, showShadow: false, radius: spacing_middle),
+                    decoration: boxDecoration(
+                        bgColor: context.cardColor,
+                        showShadow: false,
+                        radius: spacing_middle),
                     child: Column(
                       children: <Widget>[
-                        Text("Review", style: boldTextStyle(size: 24)).paddingAll(8),
+                        Text("Review", style: boldTextStyle(size: 24))
+                            .paddingAll(8),
                         Divider(thickness: 0.5),
                         Padding(
                           padding: EdgeInsets.all(spacing_large),
@@ -717,24 +843,32 @@ class ShProductDetailState extends State<ShProductDetail> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(left: spacing_large, right: spacing_large),
+                          padding: EdgeInsets.only(
+                              left: spacing_large, right: spacing_large),
                           child: Form(
                             key: _formKey,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             child: TextFormField(
                               controller: controller,
                               keyboardType: TextInputType.multiline,
                               maxLines: 5,
                               validator: (value) {
-                                return value!.isEmpty ? "Review Filed Required!" : null;
+                                return value!.isEmpty
+                                    ? "Review Filed Required!"
+                                    : null;
                               },
                               style: primaryTextStyle(),
                               decoration: new InputDecoration(
                                 hintText: 'Describe your experience',
                                 hintStyle: primaryTextStyle(),
                                 border: InputBorder.none,
-                                enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1)),
-                                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.grey, width: 1)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.grey, width: 1)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.grey, width: 1)),
                                 filled: false,
                               ),
                             ),
@@ -745,7 +879,9 @@ class ShProductDetailState extends State<ShProductDetail> {
                           children: <Widget>[
                             MaterialButton(
                               textColor: sh_colorPrimary,
-                              child: text(sh_lbl_cancel, fontSize: textSizeNormal, textColor: sh_colorPrimary),
+                              child: text(sh_lbl_cancel,
+                                  fontSize: textSizeNormal,
+                                  textColor: sh_colorPrimary),
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(5.0),
                                 side: BorderSide(color: sh_colorPrimary),
@@ -759,8 +895,11 @@ class ShProductDetailState extends State<ShProductDetail> {
                             MaterialButton(
                               color: sh_colorPrimary,
                               textColor: Colors.white,
-                              child: text(sh_lbl_submit, fontSize: textSizeNormal, textColor: sh_white),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
+                              child: text(sh_lbl_submit,
+                                  fontSize: textSizeNormal,
+                                  textColor: sh_white),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
                               onPressed: () {
                                 finish(context);
                                 final form = _formKey.currentState!;
@@ -798,7 +937,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => _tabBar.preferredSize.height;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return new Container(
       margin: EdgeInsets.only(left: 16, right: 16),
       color: sh_white,

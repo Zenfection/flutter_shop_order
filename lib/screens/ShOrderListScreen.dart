@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShOrder.dart';
-import 'package:shop_hop_prokit/screens/ShOrderDetailScreen.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShOrder.dart';
+import 'package:shop_order/screens/ShOrderDetailScreen.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 class ShOrderListScreen extends StatefulWidget {
   static String tag = '/ShOrderListScreen';
@@ -49,7 +48,8 @@ class ShOrderListScreenState extends State<ShOrderListScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 Container(
-                  decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 1)),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: sh_view_color, width: 1)),
                   child: Image.asset(
                     "images/shophop/img/products" + list[index].item!.image!,
                     fit: BoxFit.cover,
@@ -82,27 +82,35 @@ class ShOrderListScreenState extends State<ShOrderListScreen> {
                                   Container(
                                     width: spacing_standard,
                                     height: spacing_standard,
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.yellow),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.yellow),
                                   ),
                                   VerticalDivider(color: Colors.grey).expand(),
                                   Container(
                                     width: spacing_standard,
                                     height: spacing_standard,
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.grey),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey),
                                   ),
                                 ],
                               ),
                               Expanded(
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
                                   children: [
                                     Text(
-                                      list[index].order_date! + "\n Order Placed",
+                                      list[index].order_date! +
+                                          "\n Order Placed",
                                       maxLines: 2,
                                       style: primaryTextStyle(size: 14),
                                     ),
-                                    Text("Order Pending", style: secondaryTextStyle()),
+                                    Text("Order Pending",
+                                        style: secondaryTextStyle()),
                                   ],
                                 ),
                               )
@@ -124,7 +132,8 @@ class ShOrderListScreenState extends State<ShOrderListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(sh_lbl_my_orders, style: boldTextStyle(size: 18)),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
       ),
       body: Container(width: width, child: listView),
     );

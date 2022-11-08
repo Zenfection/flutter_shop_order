@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShProduct.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShStrings.dart';
 
 class ShWishlistFragment extends StatefulWidget {
   static String tag = '/ShProfileFragment';
@@ -34,7 +34,8 @@ class ShWishlistFragmentState extends State<ShWishlistFragment> {
   }
 
   Future<List<ShProduct>> loadProducts() async {
-    String jsonString = await loadContentAsset('assets/shophop_data/wishlist_products.json');
+    String jsonString =
+        await loadContentAsset('assets/shophop_data/wishlist_products.json');
     final jsonResponse = json.decode(jsonString);
     return (jsonResponse as List).map((i) => ShProduct.fromJson(i)).toList();
   }
@@ -56,7 +57,10 @@ class ShWishlistFragmentState extends State<ShWishlistFragment> {
         itemBuilder: (context, index) {
           return Container(
             color: appStore.isDarkModeOn ? scaffoldDarkColor : white,
-            margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new),
+            margin: EdgeInsets.only(
+                left: spacing_standard_new,
+                right: spacing_standard_new,
+                top: spacing_standard_new),
             child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -72,22 +76,33 @@ class ShWishlistFragmentState extends State<ShWishlistFragment> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       8.height,
-                      Text(list[index].name!, style: boldTextStyle()).paddingOnly(left: 16.0),
-                      Text(list[index].regular_price.toString().toCurrencyFormat().toString(), style: boldTextStyle(color: sh_colorPrimary)).paddingOnly(left: 16),
+                      Text(list[index].name!, style: boldTextStyle())
+                          .paddingOnly(left: 16.0),
+                      Text(
+                              list[index]
+                                  .regular_price
+                                  .toString()
+                                  .toCurrencyFormat()
+                                  .toString(),
+                              style: boldTextStyle(color: sh_colorPrimary))
+                          .paddingOnly(left: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: <Widget>[
                           Row(
                             children: <Widget>[
-                              Icon(Icons.add_shopping_cart, color: sh_textColorPrimary, size: 16),
-                              Text(sh_lbl_move_to_cart, style: primaryTextStyle()),
+                              Icon(Icons.add_shopping_cart,
+                                  color: sh_textColorPrimary, size: 16),
+                              Text(sh_lbl_move_to_cart,
+                                  style: primaryTextStyle()),
                             ],
                             mainAxisAlignment: MainAxisAlignment.center,
                           ).expand(),
                           Row(
                             children: [
-                              Icon(Icons.delete_outline, color: sh_textColorPrimary, size: 16),
+                              Icon(Icons.delete_outline,
+                                  color: sh_textColorPrimary, size: 16),
                               Text(sh_lbl_remove, style: primaryTextStyle()),
                             ],
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 class ShProfileFragment extends StatefulWidget {
   static String tag = '/ShProfileFragment';
@@ -42,7 +42,8 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         elevation: spacing_standard,
                         margin: EdgeInsets.all(spacing_control),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100.0)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0)),
                         child: CircleAvatar(
                           backgroundImage: AssetImage(ic_user),
                           radius: 55,
@@ -57,7 +58,8 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
                         color: context.cardColor,
                         border: Border.all(color: sh_colorPrimary, width: 1),
                       ),
-                      child: Icon(Icons.camera_alt, color: sh_colorPrimary, size: 16),
+                      child: Icon(Icons.camera_alt,
+                          color: sh_colorPrimary, size: 16),
                     )
                   ],
                 ),
@@ -78,14 +80,18 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
                           filled: false,
                           hintText: sh_hint_first_name,
                           hintStyle: primaryTextStyle(),
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0),
-                            borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0.5),
+                            borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.5),
+                                width: 0.5),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0),
-                            borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0),
+                            borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.5), width: 0),
                           ),
                         ),
                       ),
@@ -104,14 +110,18 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
                           filled: false,
                           hintText: sh_hint_last_name,
                           hintStyle: primaryTextStyle(),
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0),
-                            borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0.5),
+                            borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.5),
+                                width: 0.5),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(32.0),
-                            borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0),
+                            borderSide: BorderSide(
+                                color: Colors.grey.withOpacity(0.5), width: 0),
                           ),
                         ),
                       ),
@@ -125,13 +135,15 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
                 child: Container(
                   padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey.withOpacity(0.3), width: 1),
+                    border: Border.all(
+                        color: Colors.grey.withOpacity(0.3), width: 1),
                     borderRadius: BorderRadius.all(Radius.circular(32.0)),
                   ),
                   child: DropdownButton<String>(
                     underline: SizedBox(),
                     isExpanded: true,
-                    items: <String>["Male", "Female", "Other"].map((String value) {
+                    items:
+                        <String>["Male", "Female", "Other"].map((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
                         child: Text(value, style: primaryTextStyle()),
@@ -161,11 +173,13 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
                   contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),
-                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0.5),
+                    borderSide: BorderSide(
+                        color: Colors.grey.withOpacity(0.5), width: 0.5),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(32.0),
-                    borderSide: BorderSide(color: Colors.grey.withOpacity(0.5), width: 0),
+                    borderSide: BorderSide(
+                        color: Colors.grey.withOpacity(0.5), width: 0),
                   ),
                 ),
               ),
@@ -176,9 +190,13 @@ class ShProfileFragmentState extends State<ShProfileFragment> {
                 // height: double.infinity,
                 child: MaterialButton(
                   padding: EdgeInsets.all(spacing_standard),
-                  child: text(sh_lbl_save_profile, fontSize: textSizeNormal, fontFamily: fontMedium, textColor: sh_white),
+                  child: text(sh_lbl_save_profile,
+                      fontSize: textSizeNormal,
+                      fontFamily: fontMedium,
+                      textColor: sh_white),
                   textColor: sh_white,
-                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(40.0)),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(40.0)),
                   color: sh_colorPrimary,
                   onPressed: () => {},
                 ),

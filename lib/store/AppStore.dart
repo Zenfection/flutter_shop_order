@@ -1,10 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
 
 part 'AppStore.g.dart';
 
@@ -91,4 +89,3 @@ abstract class AppStoreBase with Store {
   @action
   void toggleHover({bool value = false}) => isHover = value;
 }
-

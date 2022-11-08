@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/models/ShAddress.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/models/ShAddress.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 import '../main.dart';
 
@@ -199,7 +199,8 @@ class ShAddNewAddressState extends State<ShAddNewAddress> {
     final saveButton = MaterialButton(
       height: 50,
       minWidth: double.infinity,
-      shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(40.0)),
+      shape:
+          RoundedRectangleBorder(borderRadius: new BorderRadius.circular(40.0)),
       onPressed: () {
         if (firstNameCont.text.isEmpty) {
           toasty(context, "First name required");
@@ -222,7 +223,10 @@ class ShAddNewAddressState extends State<ShAddNewAddress> {
         }
       },
       color: sh_colorPrimary,
-      child: text(sh_lbl_save_address, fontFamily: fontMedium, fontSize: textSizeLargeMedium, textColor: sh_white),
+      child: text(sh_lbl_save_address,
+          fontFamily: fontMedium,
+          fontSize: textSizeLargeMedium,
+          textColor: sh_white),
     );
 
     final body = Wrap(runSpacing: spacing_standard_new, children: <Widget>[
@@ -266,14 +270,23 @@ class ShAddNewAddressState extends State<ShAddNewAddress> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.addressModel == null ? sh_lbl_add_new_address : sh_lbl_edit_address, style: boldTextStyle()),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_colorPrimary),
+        title: Text(
+            widget.addressModel == null
+                ? sh_lbl_add_new_address
+                : sh_lbl_edit_address,
+            style: boldTextStyle()),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actionsIconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_colorPrimary),
         actions: [
           cartIcon(context, 3),
         ],
       ),
-      body: Container(width: double.infinity, child: SingleChildScrollView(child: body), margin: EdgeInsets.all(16)),
+      body: Container(
+          width: double.infinity,
+          child: SingleChildScrollView(child: body),
+          margin: EdgeInsets.all(16)),
     );
   }
 }

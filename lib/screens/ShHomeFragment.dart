@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/models/ShCategory.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
-import 'package:shop_hop_prokit/screens/ShSubCategory.dart';
-import 'package:shop_hop_prokit/screens/ShViewAllProducts.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-import 'package:shop_hop_prokit/utils/dots_indicator/src/dots_decorator.dart';
-import 'package:shop_hop_prokit/utils/dots_indicator/src/dots_indicator.dart';
-
+import 'package:shop_order/models/ShCategory.dart';
+import 'package:shop_order/models/ShProduct.dart';
+import 'package:shop_order/screens/ShSubCategory.dart';
+import 'package:shop_order/screens/ShViewAllProducts.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
+import 'package:shop_order/utils/dots_indicator/src/dots_decorator.dart';
+import 'package:shop_order/utils/dots_indicator/src/dots_indicator.dart';
 
 class ShHomeFragment extends StatefulWidget {
   static String tag = '/ShHomeFragment';
@@ -52,7 +51,8 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
     });
     List<String> banner = [];
     for (var i = 1; i < 7; i++) {
-      banner.add("images/shophop/img/products/banners/b" + i.toString() + ".jpg");
+      banner
+          .add("images/shophop/img/products/banners/b" + i.toString() + ".jpg");
     }
     setState(() {
       newestProducts.clear();
@@ -90,7 +90,10 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                             PageView.builder(
                               itemCount: banners.length,
                               itemBuilder: (context, index) {
-                                return Image.asset(banners[index], width: width, height: height * 0.55, fit: BoxFit.cover);
+                                return Image.asset(banners[index],
+                                    width: width,
+                                    height: height * 0.55,
+                                    fit: BoxFit.cover);
                               },
                               onPageChanged: (index) {
                                 setState(() {
@@ -123,34 +126,49 @@ class ShHomeFragmentState extends State<ShHomeFragment> {
                           itemCount: list.length,
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          padding: EdgeInsets.only(left: spacing_standard, right: spacing_standard),
+                          padding: EdgeInsets.only(
+                              left: spacing_standard, right: spacing_standard),
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
-                              margin: EdgeInsets.only(left: spacing_standard, right: spacing_standard),
+                              margin: EdgeInsets.only(
+                                  left: spacing_standard,
+                                  right: spacing_standard),
                               child: Column(
                                 children: <Widget>[
                                   Container(
                                     padding: EdgeInsets.all(spacing_middle),
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: colors[index % colors.length]),
-                                    child: Image.asset(list[index].image!, width: 15, color: sh_white),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: colors[index % colors.length]),
+                                    child: Image.asset(list[index].image!,
+                                        width: 15, color: sh_white),
                                   ),
                                   SizedBox(height: spacing_control),
-                                  text(list[index].name, textColor: colors[index % colors.length], fontFamily: fontMedium)
+                                  text(list[index].name,
+                                      textColor: colors[index % colors.length],
+                                      fontFamily: fontMedium)
                                 ],
                               ),
                             ).onTap(() {
-                              ShSubCategory(category: list[index]).launch(context);
+                              ShSubCategory(category: list[index])
+                                  .launch(context);
                             });
                           },
                         ),
                       ),
                       horizontalHeading(sh_lbl_newest_product, callback: () {
-                        ShViewAllProductScreen(prodcuts: newestProducts, title: sh_lbl_newest_product).launch(context);
+                        ShViewAllProductScreen(
+                                prodcuts: newestProducts,
+                                title: sh_lbl_newest_product)
+                            .launch(context);
                       }),
                       ProductHorizontalList(newestProducts),
                       SizedBox(height: spacing_standard_new),
                       horizontalHeading(sh_lbl_Featured, callback: () {
-                        ShViewAllProductScreen(prodcuts: featuredProducts, title: sh_lbl_Featured).launch(context);
+                        ShViewAllProductScreen(
+                                prodcuts: featuredProducts,
+                                title: sh_lbl_Featured)
+                            .launch(context);
                       }),
                       ProductHorizontalList(featuredProducts),
                       SizedBox(height: 60),

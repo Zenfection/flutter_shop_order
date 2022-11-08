@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/screens/ShEmailScreen.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/screens/ShEmailScreen.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 
 class ShContactUsScreen extends StatefulWidget {
   static String tag = '/ShContactUsScreen';
@@ -22,8 +21,10 @@ class ShContactUsScreenState extends State<ShContactUsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(sh_lbl_contact_us, style: boldTextStyle(size: 18)),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_colorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actionsIconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_colorPrimary),
         actions: <Widget>[cartIcon(context, 3)],
       ),
       body: Padding(
@@ -41,7 +42,10 @@ class ShContactUsScreenState extends State<ShContactUsScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(sh_lbl_call_request, style: primaryTextStyle()),
-                      Icon(Icons.keyboard_arrow_right, color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+                      Icon(Icons.keyboard_arrow_right,
+                          color: appStore.isDarkModeOn
+                              ? white
+                              : sh_textColorPrimary),
                     ],
                   ),
                   Text(sh_contact_phone, style: secondaryTextStyle()),
@@ -64,11 +68,13 @@ class ShContactUsScreenState extends State<ShContactUsScreen> {
                       Text(sh_lbl_email, style: primaryTextStyle()),
                       Icon(
                         Icons.keyboard_arrow_right,
-                        color: appStore.isDarkModeOn ? white : sh_textColorPrimary,
+                        color:
+                            appStore.isDarkModeOn ? white : sh_textColorPrimary,
                       )
                     ],
                   ),
-                  Text("Response within 24 business hours", style: secondaryTextStyle()),
+                  Text("Response within 24 business hours",
+                      style: secondaryTextStyle()),
                   SizedBox(height: spacing_standard_new),
                   divider()
                 ],

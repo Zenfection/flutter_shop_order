@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 class ShFAQScreen extends StatefulWidget {
   static String tag = '/ShFAQScreen';
@@ -19,8 +19,10 @@ class ShFAQScreenState extends State<ShFAQScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(sh_lbl_faq, style: boldTextStyle(size: 18)),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_colorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actionsIconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_colorPrimary),
         actions: <Widget>[
           cartIcon(context, 3),
         ],
@@ -106,7 +108,8 @@ class ShFAQScreenState extends State<ShFAQScreen> {
 
   Widget getSubTitle(String content) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(16.0, spacing_standard, 16.0, spacing_standard),
+      padding:
+          EdgeInsets.fromLTRB(16.0, spacing_standard, 16.0, spacing_standard),
       child: Text(content, style: secondaryTextStyle()),
     );
   }

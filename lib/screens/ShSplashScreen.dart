@@ -2,11 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/screens/ShWalkThroughScreen.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-
+import 'package:shop_order/screens/ShWalkThroughScreen.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 class ShSplashScreen extends StatefulWidget {
   static String tag = '/ShophopSplash';
@@ -53,7 +52,9 @@ class ShSplashScreenState extends State<ShSplashScreen> {
               child: Container(
                 width: width * 0.65,
                 height: width * 0.65,
-                decoration: BoxDecoration(shape: BoxShape.circle, color: sh_colorPrimary.withOpacity(0.3)),
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: sh_colorPrimary.withOpacity(0.3)),
               ),
             ),
             Center(
@@ -65,8 +66,16 @@ class ShSplashScreenState extends State<ShSplashScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Shop", style: boldTextStyle(color: sh_textColorPrimary, size: 35, fontFamily: 'Bold')),
-                      Text("hop", style: boldTextStyle(color: sh_colorPrimary, size: 35, fontFamily: 'Bold')),
+                      Text("Shop",
+                          style: boldTextStyle(
+                              color: sh_textColorPrimary,
+                              size: 35,
+                              fontFamily: 'Bold')),
+                      Text("hop",
+                          style: boldTextStyle(
+                              color: sh_colorPrimary,
+                              size: 35,
+                              fontFamily: 'Bold')),
                     ],
                   )
                 ],
@@ -82,13 +91,18 @@ class ShSplashScreenState extends State<ShSplashScreen> {
                     child: Container(
                       width: width * 0.65,
                       height: width * 0.65,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: sh_colorPrimary.withOpacity(0.3)),
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: sh_colorPrimary.withOpacity(0.3)),
                     ),
                   ),
                 ],
               ),
             ),
-            Align(alignment: Alignment.bottomRight, child: Image.asset(splash_img, width: width * 0.5, height: width * 0.5))
+            Align(
+                alignment: Alignment.bottomRight,
+                child: Image.asset(splash_img,
+                    width: width * 0.5, height: width * 0.5))
           ],
         ),
       ),

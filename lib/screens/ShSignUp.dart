@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
+
 class ShSignUp extends StatefulWidget {
   static String tag = '/ShSignUp';
 
@@ -35,7 +36,8 @@ class ShSignUpState extends State<ShSignUp> {
               Positioned(
                 top: height - (width + width * 0.05),
                 child: CachedNetworkImage(
-                  placeholder: placeholderWidgetFn() as Widget Function(BuildContext, String)?,
+                  placeholder: placeholderWidgetFn() as Widget Function(
+                      BuildContext, String)?,
                   imageUrl: ic_app_background,
                   height: width + width * 0.05,
                   width: width,
@@ -55,8 +57,14 @@ class ShSignUpState extends State<ShSignUp> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        text("Shop", textColor: sh_textColorPrimary, fontSize: spacing_xlarge, fontFamily: fontBold),
-                        text("hop", textColor: sh_colorPrimary, fontSize: spacing_xlarge, fontFamily: fontBold),
+                        text("Shop",
+                            textColor: sh_textColorPrimary,
+                            fontSize: spacing_xlarge,
+                            fontFamily: fontBold),
+                        text("hop",
+                            textColor: sh_colorPrimary,
+                            fontSize: spacing_xlarge,
+                            fontFamily: fontBold),
                       ],
                     ),
                     32.height,
@@ -78,9 +86,18 @@ class ShSignUpState extends State<ShSignUp> {
                                   focusColor: sh_editText_background_active,
                                   hintText: sh_hint_first_name,
                                   hintStyle: primaryTextStyle(),
-                                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: sh_colorPrimary, width: 0.5)),
-                                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.transparent, style: BorderStyle.none, width: 0))),
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      20.0, 15.0, 20.0, 15.0),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(32.0),
+                                      borderSide: BorderSide(
+                                          color: sh_colorPrimary, width: 0.5)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(32.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          style: BorderStyle.none,
+                                          width: 0))),
                             ),
                           ),
                           16.height,
@@ -97,9 +114,18 @@ class ShSignUpState extends State<ShSignUp> {
                                   focusColor: sh_editText_background_active,
                                   hintText: sh_hint_last_name,
                                   hintStyle: primaryTextStyle(),
-                                  contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: sh_colorPrimary, width: 0.5)),
-                                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.transparent, style: BorderStyle.none, width: 0))),
+                                  contentPadding: EdgeInsets.fromLTRB(
+                                      20.0, 15.0, 20.0, 15.0),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(32.0),
+                                      borderSide: BorderSide(
+                                          color: sh_colorPrimary, width: 0.5)),
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(32.0),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          style: BorderStyle.none,
+                                          width: 0))),
                             ),
                           ),
                         ],
@@ -118,9 +144,18 @@ class ShSignUpState extends State<ShSignUp> {
                           focusColor: sh_editText_background_active,
                           hintText: sh_hint_Email,
                           hintStyle: primaryTextStyle(),
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: sh_colorPrimary, width: 0.5)),
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.transparent, style: BorderStyle.none, width: 0))),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide(
+                                  color: sh_colorPrimary, width: 0.5)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  style: BorderStyle.none,
+                                  width: 0))),
                     ),
                     16.height,
                     TextFormField(
@@ -136,9 +171,18 @@ class ShSignUpState extends State<ShSignUp> {
                           focusColor: sh_editText_background_active,
                           hintStyle: primaryTextStyle(),
                           hintText: sh_hint_password,
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: sh_colorPrimary, width: 0.5)),
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.transparent, style: BorderStyle.none, width: 0))),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide(
+                                  color: sh_colorPrimary, width: 0.5)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  style: BorderStyle.none,
+                                  width: 0))),
                     ),
                     16.height,
                     TextFormField(
@@ -154,9 +198,18 @@ class ShSignUpState extends State<ShSignUp> {
                           focusColor: sh_editText_background_active,
                           hintStyle: primaryTextStyle(),
                           hintText: sh_hint_confirm_password,
-                          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: sh_colorPrimary, width: 0.5)),
-                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0), borderSide: BorderSide(color: Colors.transparent, style: BorderStyle.none, width: 0))),
+                          contentPadding:
+                              EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide(
+                                  color: sh_colorPrimary, width: 0.5)),
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(32.0),
+                              borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  style: BorderStyle.none,
+                                  width: 0))),
                     ),
                     32.height,
                     SizedBox(
@@ -165,9 +218,13 @@ class ShSignUpState extends State<ShSignUp> {
                       // height: double.infinity,
                       child: MaterialButton(
                         padding: EdgeInsets.all(spacing_standard),
-                        child: text(sh_lbl_sign_up, fontSize: textSizeNormal, fontFamily: fontMedium, textColor: sh_white),
+                        child: text(sh_lbl_sign_up,
+                            fontSize: textSizeNormal,
+                            fontFamily: fontMedium,
+                            textColor: sh_white),
                         textColor: sh_white,
-                        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(40.0)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(40.0)),
                         color: sh_colorPrimary,
                         onPressed: () => {},
                       ),
@@ -179,9 +236,14 @@ class ShSignUpState extends State<ShSignUp> {
                       // height: double.infinity,
                       child: MaterialButton(
                         padding: EdgeInsets.all(spacing_standard),
-                        child: text(sh_lbl_sign_in, fontSize: textSizeNormal, fontFamily: fontMedium, textColor: sh_colorPrimary),
+                        child: text(sh_lbl_sign_in,
+                            fontSize: textSizeNormal,
+                            fontFamily: fontMedium,
+                            textColor: sh_colorPrimary),
                         textColor: sh_white,
-                        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(40.0), side: BorderSide(color: sh_colorPrimary, width: 1)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(40.0),
+                            side: BorderSide(color: sh_colorPrimary, width: 1)),
                         color: context.cardColor,
                         onPressed: () => {finish(context)},
                       ),

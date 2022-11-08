@@ -1,4 +1,4 @@
-package com.example.shop_hop_prokit
+package com.example.shop_order
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/screens/ShAdressManagerScreen.dart';
-import 'package:shop_hop_prokit/screens/ShOffersScreen.dart';
-import 'package:shop_hop_prokit/screens/ShQuickPayCardsScreen.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/screens/ShAdressManagerScreen.dart';
+import 'package:shop_order/screens/ShOffersScreen.dart';
+import 'package:shop_order/screens/ShQuickPayCardsScreen.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 import 'ShOrderListScreen.dart';
 
 class ShAccountScreen extends StatefulWidget {

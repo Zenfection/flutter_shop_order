@@ -1,6 +1,4 @@
-
-
-import 'package:shop_hop_prokit/models/ShCategory.dart';
+import 'package:shop_order/models/ShCategory.dart';
 
 class ShProduct {
   int? id;
@@ -224,7 +222,9 @@ class ShProduct {
       backordered: json['backordered'],
       sold_individually: json['sold_individually'],
       weight: json['weight'],
-      dimensions: json['dimensions'] != null ? Dimensions.fromJson(json['dimensions']) : null,
+      dimensions: json['dimensions'] != null
+          ? Dimensions.fromJson(json['dimensions'])
+          : null,
       shipping_required: json['shipping_required'],
       shipping_taxable: json['shipping_taxable'],
       shipping_class: json['shipping_class'],
@@ -234,9 +234,19 @@ class ShProduct {
       rating_count: json['rating_count'],
       parent_id: json['parent_id'],
       purchase_note: json['purchase_note'],
-      categories: json['categories'] != null ? (json['categories'] as List).map((i) => ShCategory.fromJson(i)).toList() : null,
-      images: json['images'] != null ? (json['images'] as List).map((i) => ShImage.fromJson(i)).toList() : null,
-      attributes: json['attributes'] != null ? (json['attributes'] as List).map((i) => Attribute.fromJson(i)).toList() : null,
+      categories: json['categories'] != null
+          ? (json['categories'] as List)
+              .map((i) => ShCategory.fromJson(i))
+              .toList()
+          : null,
+      images: json['images'] != null
+          ? (json['images'] as List).map((i) => ShImage.fromJson(i)).toList()
+          : null,
+      attributes: json['attributes'] != null
+          ? (json['attributes'] as List)
+              .map((i) => Attribute.fromJson(i))
+              .toList()
+          : null,
     );
   }
 }
@@ -256,7 +266,15 @@ class ShImage {
   String? alt;
 
   // ignore: non_constant_identifier_names
-  ShImage({this.id, this.date_created, this.date_created_gmt, this.date_modified, this.date_modified_gmt, this.src, this.name, this.alt});
+  ShImage(
+      {this.id,
+      this.date_created,
+      this.date_created_gmt,
+      this.date_modified,
+      this.date_modified_gmt,
+      this.src,
+      this.name,
+      this.alt});
 
   factory ShImage.fromJson(Map<String, dynamic> json) {
     return ShImage(
@@ -293,7 +311,13 @@ class Attribute {
   bool? variation;
   List<String>? options;
 
-  Attribute({this.id, this.name, this.position, this.visible, this.variation, this.options});
+  Attribute(
+      {this.id,
+      this.name,
+      this.position,
+      this.visible,
+      this.variation,
+      this.options});
 
   factory Attribute.fromJson(Map<String, dynamic> json) {
     return Attribute(
@@ -302,7 +326,9 @@ class Attribute {
       position: json['position'],
       visible: json['visible'],
       variation: json['variation'],
-      options: json['options'] != null ? new List<String>.from(json['options']) : null,
+      options: json['options'] != null
+          ? new List<String>.from(json['options'])
+          : null,
     );
   }
 

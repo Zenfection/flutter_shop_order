@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
-import 'package:shop_hop_prokit/screens/ShOrderSummaryScreen.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShProduct.dart';
+import 'package:shop_order/screens/ShOrderSummaryScreen.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 class ShCartFragment extends StatefulWidget {
   static String tag = '/ShProfileFragment';
@@ -51,7 +51,10 @@ class ShCartFragmentState extends State<ShCartFragment> {
         itemBuilder: (context, index) {
           return Container(
             color: context.cardColor,
-            margin: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: spacing_standard_new),
+            margin: EdgeInsets.only(
+                left: spacing_standard_new,
+                right: spacing_standard_new,
+                top: spacing_standard_new),
             child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -73,28 +76,46 @@ class ShCartFragmentState extends State<ShCartFragment> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               8.height,
-                              Text(list[index].name.toString(), style: boldTextStyle()).paddingOnly(left: 16),
+                              Text(list[index].name.toString(),
+                                      style: boldTextStyle())
+                                  .paddingOnly(left: 16),
                               4.height,
                               Row(
                                 children: [
                                   Container(
-                                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.black),
-                                    padding: EdgeInsets.all(spacing_control_half),
-                                    child: Icon(Icons.done, color: sh_white, size: 12),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.black),
+                                    padding:
+                                        EdgeInsets.all(spacing_control_half),
+                                    child: Icon(Icons.done,
+                                        color: sh_white, size: 12),
                                   ),
                                   8.width,
                                   Text("M", style: boldTextStyle()),
                                   8.width,
                                   Container(
                                     alignment: Alignment.center,
-                                    padding: EdgeInsets.fromLTRB(spacing_standard, 1, spacing_standard, 1),
-                                    decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 1)),
+                                    padding: EdgeInsets.fromLTRB(
+                                        spacing_standard,
+                                        1,
+                                        spacing_standard,
+                                        1),
+                                    decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: sh_view_color, width: 1)),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
                                       children: [
-                                        Text("Qty: 5", style: secondaryTextStyle()).paddingOnly(left: 8),
-                                        Icon(Icons.arrow_drop_down, color: sh_textColorPrimary, size: 16),
+                                        Text("Qty: 5",
+                                                style: secondaryTextStyle())
+                                            .paddingOnly(left: 8),
+                                        Icon(Icons.arrow_drop_down,
+                                            color: sh_textColorPrimary,
+                                            size: 16),
                                       ],
                                     ),
                                   )
@@ -105,13 +126,30 @@ class ShCartFragmentState extends State<ShCartFragment> {
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
-                                    list[index].on_sale! ? list[index].sale_price.toString().toCurrencyFormat().toString() : list[index].price.toString().toCurrencyFormat().toString(),
+                                    list[index].on_sale!
+                                        ? list[index]
+                                            .sale_price
+                                            .toString()
+                                            .toCurrencyFormat()
+                                            .toString()
+                                        : list[index]
+                                            .price
+                                            .toString()
+                                            .toCurrencyFormat()
+                                            .toString(),
                                     style: primaryTextStyle(),
                                   ),
                                   4.width,
                                   Text(
-                                    list[index].regular_price.toString().toCurrencyFormat()!,
-                                    style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSMedium, decoration: TextDecoration.lineThrough),
+                                    list[index]
+                                        .regular_price
+                                        .toString()
+                                        .toCurrencyFormat()!,
+                                    style: TextStyle(
+                                        color: sh_textColorSecondary,
+                                        fontFamily: fontRegular,
+                                        fontSize: textSizeSMedium,
+                                        decoration: TextDecoration.lineThrough),
                                   ),
                                 ],
                               ).paddingOnly(left: 16.0),
@@ -130,7 +168,9 @@ class ShCartFragmentState extends State<ShCartFragment> {
                                 children: [
                                   Icon(
                                     Icons.bookmark_border,
-                                    color: appStore.isDarkModeOn ? gray : sh_textColorPrimary,
+                                    color: appStore.isDarkModeOn
+                                        ? gray
+                                        : sh_textColorPrimary,
                                     size: 16,
                                   ),
                                   4.width,
@@ -144,17 +184,21 @@ class ShCartFragmentState extends State<ShCartFragment> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                               ),
                             ),
-                            Container(width: 1, color: sh_view_color, height: 35),
+                            Container(
+                                width: 1, color: sh_view_color, height: 35),
                             Expanded(
                               child: Row(
                                 children: [
                                   Icon(
                                     Icons.delete_outline,
-                                    color: appStore.isDarkModeOn ? gray : sh_textColorPrimary,
+                                    color: appStore.isDarkModeOn
+                                        ? gray
+                                        : sh_textColorPrimary,
                                     size: 16,
                                   ),
                                   4.width,
-                                  Text(sh_lbl_remove, style: secondaryTextStyle()),
+                                  Text(sh_lbl_remove,
+                                      style: secondaryTextStyle()),
                                 ],
                                 mainAxisAlignment: MainAxisAlignment.center,
                               ),
@@ -171,39 +215,48 @@ class ShCartFragmentState extends State<ShCartFragment> {
           // return Chats(mListings[index], index);
         });
     var paymentDetail = Container(
-      margin: EdgeInsets.fromLTRB(spacing_standard_new, spacing_standard_new, spacing_standard_new, 80),
-      decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 1.0)),
+      margin: EdgeInsets.fromLTRB(
+          spacing_standard_new, spacing_standard_new, spacing_standard_new, 80),
+      decoration:
+          BoxDecoration(border: Border.all(color: sh_view_color, width: 1.0)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_middle, spacing_standard_new, spacing_middle),
+            padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_middle,
+                spacing_standard_new, spacing_middle),
             child: Text(sh_lbl_payment_details, style: boldTextStyle()),
           ),
           Divider(height: 1, color: sh_view_color),
           Padding(
-            padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_middle, spacing_standard_new, spacing_middle),
+            padding: EdgeInsets.fromLTRB(spacing_standard_new, spacing_middle,
+                spacing_standard_new, spacing_middle),
             child: Column(
               children: [
                 Row(
                   children: [
                     text(sh_lbl_offer),
                     4.width,
-                    Text(sh_text_offer_not_available, style: primaryTextStyle()),
+                    Text(sh_text_offer_not_available,
+                        style: primaryTextStyle()),
                   ],
                 ),
                 8.height,
                 Row(
                   children: [
                     text(sh_lbl_shipping_charge),
-                    text(sh_lbl_free, textColor: Colors.green, fontFamily: fontMedium),
+                    text(sh_lbl_free,
+                        textColor: Colors.green, fontFamily: fontMedium),
                   ],
                 ),
                 8.height,
                 Row(
                   children: [
                     text(sh_lbl_total_amount),
-                    text("\$70", textColor: sh_colorPrimary, fontFamily: fontBold, fontSize: textSizeLargeMedium),
+                    text("\$70",
+                        textColor: sh_colorPrimary,
+                        fontFamily: fontBold,
+                        fontSize: textSizeLargeMedium),
                   ],
                 ),
               ],
@@ -216,7 +269,11 @@ class ShCartFragmentState extends State<ShCartFragment> {
     var bottomButtons = Container(
       height: 65,
       decoration: BoxDecoration(boxShadow: [
-        BoxShadow(color: sh_shadow_color, blurRadius: 10, spreadRadius: 2, offset: Offset(0, 3)),
+        BoxShadow(
+            color: sh_shadow_color,
+            blurRadius: 10,
+            spreadRadius: 2,
+            offset: Offset(0, 3)),
       ], color: sh_white),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,7 +290,10 @@ class ShCartFragmentState extends State<ShCartFragment> {
             ),
           ).expand(),
           Container(
-            child: text(sh_lbl_continue, textColor: sh_white, fontSize: textSizeLargeMedium, fontFamily: fontMedium),
+            child: text(sh_lbl_continue,
+                textColor: sh_white,
+                fontSize: textSizeLargeMedium,
+                fontFamily: fontMedium),
             color: sh_colorPrimary,
             alignment: Alignment.center,
             height: double.infinity,

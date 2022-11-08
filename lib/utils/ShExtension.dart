@@ -2,42 +2,47 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
-import 'package:shop_hop_prokit/models/ShAddress.dart';
-import 'package:shop_hop_prokit/models/ShAttribute.dart';
-import 'package:shop_hop_prokit/models/ShCategory.dart';
-import 'package:shop_hop_prokit/models/ShOrder.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
+import 'package:shop_order/models/ShAddress.dart';
+import 'package:shop_order/models/ShAttribute.dart';
+import 'package:shop_order/models/ShCategory.dart';
+import 'package:shop_order/models/ShOrder.dart';
+import 'package:shop_order/models/ShProduct.dart';
 
 Future<String> loadContentAsset(String path) async {
   return await rootBundle.loadString(path);
 }
 
 Future<List<ShCategory>> loadCategory() async {
-  String jsonString = await loadContentAsset('assets/shophop_data/category.json');
+  String jsonString =
+      await loadContentAsset('assets/shophop_data/category.json');
   final jsonResponse = json.decode(jsonString);
   return (jsonResponse as List).map((i) => ShCategory.fromJson(i)).toList();
 }
 
 Future<List<ShProduct>> loadProducts() async {
-  String jsonString = await loadContentAsset('assets/shophop_data/products.json');
+  String jsonString =
+      await loadContentAsset('assets/shophop_data/products.json');
   final jsonResponse = json.decode(jsonString);
   return (jsonResponse as List).map((i) => ShProduct.fromJson(i)).toList();
 }
 
 Future<List<ShProduct>> loadCartProducts() async {
-  String jsonString = await loadContentAsset('assets/shophop_data/cart_products.json');
+  String jsonString =
+      await loadContentAsset('assets/shophop_data/cart_products.json');
   final jsonResponse = json.decode(jsonString);
   return (jsonResponse as List).map((i) => ShProduct.fromJson(i)).toList();
 }
 
 Future<ShAttributes> loadAttributes() async {
-  String jsonString = await loadContentAsset('assets/shophop_data/attributes.json');
+  String jsonString =
+      await loadContentAsset('assets/shophop_data/attributes.json');
   final jsonResponse = json.decode(jsonString);
   return ShAttributes.fromJson(jsonResponse);
 }
 
 Future<List<ShAddressModel>> loadAddresses() async {
-  String jsonString = await loadContentAsset('assets/shophop_data/address.json');
+  String jsonString =
+      await loadContentAsset('assets/shophop_data/address.json');
   final jsonResponse = json.decode(jsonString);
   return (jsonResponse as List).map((i) => ShAddressModel.fromJson(i)).toList();
 }
@@ -69,7 +74,8 @@ extension StringExtension on String? {
     if (this == null || this!.isEmpty || this == "null") {
       return "NA";
     } else {
-      return DateFormat("HH:mm dd MMM yyyy", "en_US").format(DateFormat("yyyy-MM-dd HH:mm:ss.0", "en_US").parse(this!));
+      return DateFormat("HH:mm dd MMM yyyy", "en_US")
+          .format(DateFormat("yyyy-MM-dd HH:mm:ss.0", "en_US").parse(this!));
     }
   }
 
@@ -77,7 +83,8 @@ extension StringExtension on String? {
     if (this == null || this!.isEmpty || this == "null") {
       return "NA";
     } else {
-      return DateFormat("dd MMM yyyy", "en_US").format(DateFormat("yyyy-MM-dd", "en_US").parse(this!));
+      return DateFormat("dd MMM yyyy", "en_US")
+          .format(DateFormat("yyyy-MM-dd", "en_US").parse(this!));
     }
   }
 }

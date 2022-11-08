@@ -1,7 +1,7 @@
 library dots_indicator;
 
 import 'package:flutter/material.dart';
-import 'package:shop_hop_prokit/utils/dots_indicator/src/dots_decorator.dart';
+import 'package:shop_order/utils/dots_indicator/src/dots_decorator.dart';
 
 class DotsIndicator extends StatelessWidget {
   final int dotsCount;

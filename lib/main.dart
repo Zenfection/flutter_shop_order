@@ -1,14 +1,11 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/screens/ShSplashScreen.dart';
-import 'package:shop_hop_prokit/store/AppStore.dart';
-import 'package:shop_hop_prokit/utils/AppTheme.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShDataGenerater.dart';
-
-
+import 'package:shop_order/screens/ShSplashScreen.dart';
+import 'package:shop_order/store/AppStore.dart';
+import 'package:shop_order/utils/AppTheme.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShDataGenerater.dart';
 
 AppStore appStore = AppStore();
 
@@ -35,7 +32,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'ShopHop${!isMobile ? ' ${platformName()}' : ''}',
         home: ShSplashScreen(),
-        theme: !appStore.isDarkModeOn ? AppThemeData.lightTheme : AppThemeData.darkTheme,
+        theme: !appStore.isDarkModeOn
+            ? AppThemeData.lightTheme
+            : AppThemeData.darkTheme,
         navigatorKey: navigatorKey,
         scrollBehavior: SBehavior(),
         supportedLocales: LanguageDataModel.languageLocales(),

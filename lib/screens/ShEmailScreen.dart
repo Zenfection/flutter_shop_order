@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 class ShEmailScreen extends StatefulWidget {
   static String tag = '/ShEmailScreen';
@@ -30,8 +30,10 @@ class ShEmailScreenState extends State<ShEmailScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(sh_lbl_email, style: boldTextStyle(size: 18)),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_colorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actionsIconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_colorPrimary),
         actions: <Widget>[
           cartIcon(context, 3),
         ],
@@ -64,10 +66,14 @@ class ShEmailScreenState extends State<ShEmailScreen> {
             MaterialButton(
               height: 50,
               minWidth: double.infinity,
-              shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(40.0)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(40.0)),
               onPressed: () {},
               color: sh_colorPrimary,
-              child: text(sh_lbl_send_mail, fontFamily: fontMedium, fontSize: textSizeLargeMedium, textColor: sh_white),
+              child: text(sh_lbl_send_mail,
+                  fontFamily: fontMedium,
+                  fontSize: textSizeLargeMedium,
+                  textColor: sh_white),
             )
           ],
         ),

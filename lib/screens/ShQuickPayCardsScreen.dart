@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShPaymentCard.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShPaymentCard.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
 
 import 'ShAddCardScreen.dart';
 
@@ -56,7 +56,8 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
     width = width - 50;
     final listView = ListView.builder(
       physics: NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.only(top: spacing_standard_new, bottom: spacing_standard_new),
+      padding: EdgeInsets.only(
+          top: spacing_standard_new, bottom: spacing_standard_new),
       itemBuilder: (item, index) {
         return Padding(
           padding: const EdgeInsets.only(bottom: spacing_standard_new),
@@ -108,11 +109,19 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      text("Debit card", textColor: sh_white, fontSize: textSizeLargeMedium, fontFamily: fontBold),
-                                      text("MVK Bank", textColor: sh_white, fontSize: textSizeLargeMedium, fontFamily: fontBold)
+                                      text("Debit card",
+                                          textColor: sh_white,
+                                          fontSize: textSizeLargeMedium,
+                                          fontFamily: fontBold),
+                                      text("MVK Bank",
+                                          textColor: sh_white,
+                                          fontSize: textSizeLargeMedium,
+                                          fontFamily: fontBold)
                                     ],
                                   ),
                                   SizedBox(
@@ -120,9 +129,13 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
                                   ),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Image.asset(chip, width: 50, height: 30, fit: BoxFit.fill),
+                                        Image.asset(chip,
+                                            width: 50,
+                                            height: 30,
+                                            fit: BoxFit.fill),
                                         16.height,
                                         text(
                                           "3434 3434 3434",
@@ -130,9 +143,14 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
                                           fontFamily: fontMedium,
                                           fontSize: textSizeLargeMedium,
                                         ),
-                                        text("valid 12/12", textColor: sh_white, fontSize: textSizeSMedium),
+                                        text("valid 12/12",
+                                            textColor: sh_white,
+                                            fontSize: textSizeSMedium),
                                         8.height,
-                                        text("JOHN", textColor: sh_white, fontFamily: fontMedium, fontSize: textSizeMedium),
+                                        text("JOHN",
+                                            textColor: sh_white,
+                                            fontFamily: fontMedium,
+                                            fontSize: textSizeMedium),
                                       ],
                                     ),
                                   )
@@ -165,7 +183,8 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(sh_title_payment, style: boldTextStyle(size: 18)),
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -178,8 +197,13 @@ class ShQuickPayCardsScreenState extends State<ShQuickPayCardsScreen> {
                   Text(sh_lbl_quick_pay, style: boldTextStyle()),
                   MaterialButton(
                     textColor: sh_colorPrimary,
-                    padding: EdgeInsets.only(left: spacing_standard_new, right: spacing_standard_new, top: 0, bottom: 0),
-                    child: text(sh_lbl_add_card, fontSize: textSizeSMedium, textColor: sh_colorPrimary),
+                    padding: EdgeInsets.only(
+                        left: spacing_standard_new,
+                        right: spacing_standard_new,
+                        top: 0,
+                        bottom: 0),
+                    child: text(sh_lbl_add_card,
+                        fontSize: textSizeSMedium, textColor: sh_colorPrimary),
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(spacing_large),
                       side: BorderSide(color: sh_colorPrimary),

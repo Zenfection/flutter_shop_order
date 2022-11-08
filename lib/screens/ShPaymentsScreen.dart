@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShPaymentCard.dart';
-import 'package:shop_hop_prokit/screens/ShAddCardScreen.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShImages.dart';
-import 'package:shop_hop_prokit/utils/ShStrings.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-import 'package:shop_hop_prokit/utils/widgets/ShSliderWidget.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShPaymentCard.dart';
+import 'package:shop_order/screens/ShAddCardScreen.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShImages.dart';
+import 'package:shop_order/utils/ShStrings.dart';
+import 'package:shop_order/utils/ShWidget.dart';
+import 'package:shop_order/utils/widgets/ShSliderWidget.dart';
 
 class ShPaymentsScreen extends StatefulWidget {
   static String tag = '/ShPaymentsScreen';

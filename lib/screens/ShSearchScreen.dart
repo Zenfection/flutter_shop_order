@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:shop_hop_prokit/main.dart';
-import 'package:shop_hop_prokit/models/ShProduct.dart';
-import 'package:shop_hop_prokit/utils/ShColors.dart';
-import 'package:shop_hop_prokit/utils/ShConstant.dart';
-import 'package:shop_hop_prokit/utils/ShExtension.dart';
-import 'package:shop_hop_prokit/utils/ShWidget.dart';
-import 'package:shop_hop_prokit/utils/flutter_rating_bar.dart';
+import 'package:shop_order/main.dart';
+import 'package:shop_order/models/ShProduct.dart';
+import 'package:shop_order/utils/ShColors.dart';
+import 'package:shop_order/utils/ShConstant.dart';
+import 'package:shop_order/utils/ShExtension.dart';
+import 'package:shop_order/utils/ShWidget.dart';
+import 'package:shop_order/utils/flutter_rating_bar.dart';
 
 import 'ShProductDetail.dart';
 
@@ -54,7 +54,11 @@ class ShSearchScreenState extends State<ShSearchScreen> {
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => ShProductDetail(product: list[index])));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        ShProductDetail(product: list[index])));
           },
           child: Container(
             padding: EdgeInsets.all(10.0),
@@ -64,8 +68,14 @@ class ShSearchScreenState extends State<ShSearchScreen> {
                 children: <Widget>[
                   Container(
                     padding: EdgeInsets.all(1),
-                    decoration: BoxDecoration(border: Border.all(color: sh_view_color, width: 1)),
-                    child: Image.asset("images/shophop/img/products" + list[index].images![0].src!, fit: BoxFit.cover, height: width * 0.35, width: width * 0.29),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: sh_view_color, width: 1)),
+                    child: Image.asset(
+                        "images/shophop/img/products" +
+                            list[index].images![0].src!,
+                        fit: BoxFit.cover,
+                        height: width * 0.35,
+                        width: width * 0.29),
                   ),
                   SizedBox(width: 10),
                   Expanded(
@@ -76,14 +86,32 @@ class ShSearchScreenState extends State<ShSearchScreen> {
                         SizedBox(height: 4),
                         Row(
                           children: <Widget>[
-                            text(list[index].on_sale! ? list[index].sale_price.toString().toCurrencyFormat() : list[index].price.toString().toCurrencyFormat(),
-                                textColor: sh_colorPrimary, fontFamily: fontMedium, fontSize: textSizeNormal),
+                            text(
+                                list[index].on_sale!
+                                    ? list[index]
+                                        .sale_price
+                                        .toString()
+                                        .toCurrencyFormat()
+                                    : list[index]
+                                        .price
+                                        .toString()
+                                        .toCurrencyFormat(),
+                                textColor: sh_colorPrimary,
+                                fontFamily: fontMedium,
+                                fontSize: textSizeNormal),
                             SizedBox(
                               width: spacing_control,
                             ),
                             Text(
-                              list[index].regular_price.toString().toCurrencyFormat()!,
-                              style: TextStyle(color: sh_textColorSecondary, fontFamily: fontRegular, fontSize: textSizeSmall, decoration: TextDecoration.lineThrough),
+                              list[index]
+                                  .regular_price
+                                  .toString()
+                                  .toCurrencyFormat()!,
+                              style: TextStyle(
+                                  color: sh_textColorSecondary,
+                                  fontFamily: fontRegular,
+                                  fontSize: textSizeSmall,
+                                  decoration: TextDecoration.lineThrough),
                             ),
                           ],
                         ),
@@ -99,7 +127,8 @@ class ShSearchScreenState extends State<ShSearchScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
                                 RatingBar(
-                                  initialRating: double.parse(list[index].average_rating!),
+                                  initialRating:
+                                      double.parse(list[index].average_rating!),
                                   direction: Axis.horizontal,
                                   allowHalfRating: true,
                                   tapOnlyMode: true,
@@ -113,8 +142,10 @@ class ShSearchScreenState extends State<ShSearchScreen> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.all(spacing_control),
-                                  margin: EdgeInsets.only(right: spacing_standard),
-                                  decoration: BoxDecoration(shape: BoxShape.circle, color: sh_white),
+                                  margin:
+                                      EdgeInsets.only(right: spacing_standard),
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle, color: sh_white),
                                   child: Icon(
                                     Icons.favorite_border,
                                     color: sh_textColorPrimary,
@@ -139,8 +170,10 @@ class ShSearchScreenState extends State<ShSearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
-        actionsIconTheme: IconThemeData(color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        iconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
+        actionsIconTheme: IconThemeData(
+            color: appStore.isDarkModeOn ? white : sh_textColorPrimary),
         title: TextFormField(
           onFieldSubmitted: (value) {
             setState(
@@ -155,7 +188,10 @@ class ShSearchScreenState extends State<ShSearchScreen> {
           controller: searchController,
           textInputAction: TextInputAction.search,
           style: primaryTextStyle(),
-          decoration: InputDecoration(border: InputBorder.none, hintText: "Search", hintStyle: primaryTextStyle()),
+          decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: "Search",
+              hintStyle: primaryTextStyle()),
           keyboardType: TextInputType.text,
           textAlign: TextAlign.start,
         ),
@@ -194,7 +230,11 @@ class ShSearchScreenState extends State<ShSearchScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     80.height,
-                    Text("No results found for \"" + searchController.text + "\"", style: boldTextStyle(size: 22)),
+                    Text(
+                        "No results found for \"" +
+                            searchController.text +
+                            "\"",
+                        style: boldTextStyle(size: 22)),
                     8.height,
                     Text("Try a diffetent keyword", style: secondaryTextStyle())
                   ],
