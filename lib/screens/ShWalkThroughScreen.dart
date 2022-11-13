@@ -12,8 +12,7 @@ import 'package:shop_order/utils/ShStrings.dart';
 import 'package:shop_order/utils/ShWidget.dart';
 import 'package:shop_order/utils/widgets/ShSliderWidget.dart';
 
-import 'package:shop_order/utils/dots_indicator/src/dots_decorator.dart';
-import 'package:shop_order/utils/dots_indicator/src/dots_indicator.dart';
+import 'package:shop_order/utils/dots_indicator/dots_indicator.dart';
 
 class ShWalkThroughScreen extends StatefulWidget {
   static var tag = "/ShWalkThroughScreen";
@@ -25,7 +24,7 @@ class ShWalkThroughScreen extends StatefulWidget {
 class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
   var mSliderList = <String>[ic_walk_1, ic_walk_2, ic_walk_3];
   var mHeadingList = <String>[
-    "Hi, Welcome",
+    "Xin chào",
     "Most Unique Styles!",
     "Shop Till You Drop!"
   ];
@@ -34,7 +33,10 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
     "Shop the most trending fashion on the biggest shopping website",
     "Grab the best seller pieces at bargain prices."
   ];
-  var position = 0;
+
+  PageController pageController = PageController(initialPage: 0);
+  int position = 0;
+  int _currentPage = 0;
 
   @override
   void dispose() {
@@ -50,36 +52,45 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              24.height,
-              Container(
-                margin: EdgeInsets.fromLTRB(spacing_large, spacing_large,
-                    spacing_large, spacing_standard_new),
-                child: Column(
-                  children: <Widget>[
-                    Text(mHeadingList[position],
-                        style: boldTextStyle(size: 24)),
-                    16.height,
-                    Text(
-                      mSubHeadingList[position],
-                      style: secondaryTextStyle(size: 16),
-                      maxLines: 3,
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
-              ),
+              // ShSliderWidget
               ShCarouselSlider(
                 viewportFraction: 0.8,
-                height: MediaQuery.of(context).size.height * 0.5,
+                height: MediaQuery.of(context).size.height * 0.6,
                 enlargeCenterPage: true,
-                scrollDirection: Axis.horizontal,
+                autoPlay: true,
+                initialPage: 1,
+                autoPlayInterval: Duration(seconds: 3),
+                // scrollDirection: Axis.horizontal,
                 items: mSliderList.map(
                   (slider) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return Container(
+                        // return 2 container
+                        return Column(
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.fromLTRB(
+                                  spacing_large,
+                                  spacing_large,
+                                  spacing_large,
+                                  spacing_standard_new),
+                              child: Column(
+                                children: <Widget>[
+                                  Text(mHeadingList[_currentPage],
+                                      style: boldTextStyle(size: 24)),
+                                  16.height,
+                                  Text(
+                                    mSubHeadingList[_currentPage],
+                                    style: secondaryTextStyle(size: 16),
+                                    maxLines: 3,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
                           width: width * 0.9,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.all(
@@ -88,15 +99,24 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
                           child: Image.asset(slider,
                                   width: context.width(), fit: BoxFit.cover)
                               .center(),
+                            ),
+                          ],
                         );
+
+                        // return Container(
+                        //   width: width * 0.9,
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.all(
+                        //           Radius.circular(spacing_standard))),
+                        //   margin: EdgeInsets.all(spacing_standard_new),
+                        //   child: Image.asset(slider,
+                        //           width: context.width(), fit: BoxFit.cover)
+                        //       .center(),
+                        // );
                       },
                     );
                   },
                 ).toList(),
-                onPageChanged: (index) {
-                  position = index;
-                  setState(() {});
-                },
               ),
               Padding(
                 padding: const EdgeInsets.all(spacing_large),
@@ -104,11 +124,14 @@ class _ShWalkThroughScreenState extends State<ShWalkThroughScreen> {
                   children: <Widget>[
                     DotsIndicator(
                       dotsCount: 3,
-                      position: position,
+                      position: _currentPage,
                       decorator: DotsDecorator(
                         color: sh_view_color,
                         activeColor: sh_colorPrimary,
-                        activeSize: Size.square(14.0),
+                        size: const Size.square(9.0),
+                        activeSize: const Size(18.0, 9.0),
+                        activeShape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
                         spacing: EdgeInsets.all(spacing_control),
                       ),
                     ),

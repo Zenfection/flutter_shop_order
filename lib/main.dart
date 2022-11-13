@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -18,7 +20,10 @@ void main() async {
 
   defaultToastGravityGlobal = ToastGravity.BOTTOM;
 
-  runApp(const MyApp());
+  runApp(DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (context) => MyApp(), // Wrap your app
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -32,9 +37,14 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'ShopHop${!isMobile ? ' ${platformName()}' : ''}',
         home: ShSplashScreen(),
-        theme: !appStore.isDarkModeOn
-            ? AppThemeData.lightTheme
-            : AppThemeData.darkTheme,
+        useInheritedMediaQuery: true,
+        locale: DevicePreview.locale(context),
+        builder: DevicePreview.appBuilder,
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        // theme: !appStore.isDarkModeOn
+        //     ? AppThemeData.lightTheme
+        //     : AppThemeData.darkTheme,
         navigatorKey: navigatorKey,
         scrollBehavior: SBehavior(),
         supportedLocales: LanguageDataModel.languageLocales(),
