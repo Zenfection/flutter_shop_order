@@ -4,6 +4,7 @@ import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:crypto/crypto.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // Source
 import 'package:shop_order/main/store/AppStore.dart';
@@ -154,7 +155,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
                     text: "Nếu bạn chưa có tài khoản? ",
                     style: secondaryTextStyle(size: 16)),
                 TextSpan(
-                  text: "Đăng nhập",
+                  text: "Đăng Ký",
                   style: boldTextStyle(color: primaryColor, size: 18),
                 ),
               ]).center().onTap(() {
@@ -165,6 +166,17 @@ class GSLoginScreenState extends State<GSLoginScreen> {
         ),
       ),
     );
+  }
+
+  void loadFlutterToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   Future loginUser(String username, String password) async {
@@ -185,12 +197,13 @@ class GSLoginScreenState extends State<GSLoginScreen> {
         final prefs = await SharedPreferences.getInstance();
         prefs.setString('username', username);
         prefs.setString('password', md5password);
+        prefs.setBool('isLogged', true);
         appStore.isLoggedIn = true;
         goMainScreen();
       } else if (data['status'] == 'error') {
-        log(data['message']);
+        loadFlutterToast(data['message']);
       } else if (data['status'] == 'failed') {
-        log(data['message']);
+        loadFlutterToast(data['message']);
       }
     }
   }

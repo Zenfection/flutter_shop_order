@@ -14,6 +14,7 @@ import 'package:shop_order/main/utils/AppColors.dart';
 
 // Redirect
 import 'package:shop_order/screens/GSWalkThroughScreen.dart';
+import 'package:shop_order/screens/GSDashboardScreen.dart';
 
 AppStore appStore = AppStore();
 
@@ -83,7 +84,9 @@ class MyApp extends StatelessWidget {
           ),
         ),
         themeMode: appStore.isDarkModeOn ? ThemeMode.dark : ThemeMode.light,
-        home: GSWalkThroughScreen(),
+        home: appStore.isLoggedIn
+            ? const GSDashboardScreen()
+            : GSWalkThroughScreen(),
         builder: scrollBehaviour(),
       ),
     );

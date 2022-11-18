@@ -79,6 +79,15 @@ class GSCategoryListDetailsScreenState
     setState(() {});
   }
 
+  Future refresh() async {
+    String category = widget.categoryName!;
+    category = getCategoryCode(category);
+
+    final prefs = await SharedPreferences.getInstance();
+    categoryDetailsList = await getCategoryProduct(category);
+    setState(() {});
+  }
+
   @override
   void setState(fn) {
     if (mounted) super.setState(fn);
@@ -86,75 +95,79 @@ class GSCategoryListDetailsScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor:
-          appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
-      appBar: AppBar(
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: Scaffold(
         backgroundColor:
-            appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
-        elevation: 1,
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-        titleSpacing: 0,
-        title: Row(
-          children: [
-            IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                color:
-                    appStore.isDarkModeOn ? iconSecondaryColor : Colors.black,
+            appStore.isDarkModeOn ? scaffoldColorDark : gs_background,
+        appBar: AppBar(
+          backgroundColor:
+              appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+          elevation: 1,
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          titleSpacing: 0,
+          title: Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back,
+                  color:
+                      appStore.isDarkModeOn ? iconSecondaryColor : Colors.black,
+                ),
+                onPressed: () {
+                  finish(context);
+                },
               ),
-              onPressed: () {
-                finish(context);
-              },
-            ),
-            8.width,
-            Text(widget.categoryName.validate(), style: boldTextStyle())
-                .expand(),
-            IconButton(icon: const Icon(Icons.share), onPressed: () {})
-          ],
+              8.width,
+              Text(widget.categoryName.validate(), style: boldTextStyle())
+                  .expand(),
+              IconButton(icon: const Icon(Icons.share), onPressed: () {})
+            ],
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-        //padding: EdgeInsets.all(8),
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(top: 6, bottom: 6),
-              decoration: boxDecorationWithRoundedCorners(
-                borderRadius: radius(0),
-                boxShadow: defaultBoxShadow(),
-                backgroundColor: appStore.isDarkModeOn
-                    ? scaffoldSecondaryDark
-                    : Colors.white,
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          //padding: EdgeInsets.all(8),
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 6, bottom: 6),
+                decoration: boxDecorationWithRoundedCorners(
+                  borderRadius: radius(0),
+                  boxShadow: defaultBoxShadow(),
+                  backgroundColor: appStore.isDarkModeOn
+                      ? scaffoldSecondaryDark
+                      : Colors.white,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Row(
+                      children: [
+                        const Icon(Icons.filter_alt, color: Colors.grey),
+                        8.width,
+                        Text("Bộ Lọc", style: secondaryTextStyle(size: 16)),
+                      ],
+                    ).onTap(() {
+                      bottomFilterDialog(
+                          context, "Bộ lọc thông minh", filterList);
+                    }),
+                    Row(
+                      children: [
+                        const Icon(Icons.sort, color: Colors.grey),
+                        8.width,
+                        Text("Sắp Xếp", style: secondaryTextStyle(size: 16)),
+                      ],
+                    ).onTap(() {
+                      bottomFilterDialog(context, "Sắp Xếp", sortList);
+                    })
+                  ],
+                ),
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.filter_alt, color: Colors.grey),
-                      8.width,
-                      Text("Bộ Lọc", style: secondaryTextStyle(size: 16)),
-                    ],
-                  ).onTap(() {
-                    bottomFilterDialog(
-                        context, "Bộ lọc thông minh", filterList);
-                  }),
-                  Row(
-                    children: [
-                      const Icon(Icons.sort, color: Colors.grey),
-                      8.width,
-                      Text("Sắp Xếp", style: secondaryTextStyle(size: 16)),
-                    ],
-                  ).onTap(() {
-                    bottomFilterDialog(context, "Sắp Xếp", sortList);
-                  })
-                ],
-              ),
-            ),
-            GSCategoryListDetailsComponent(categoryDetailsList)
-          ],
+              GSCategoryListDetailsComponent(categoryDetailsList)
+            ],
+          ),
         ),
       ),
     );

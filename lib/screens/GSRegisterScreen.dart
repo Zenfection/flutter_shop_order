@@ -1,7 +1,9 @@
-import 'package:http/http.dart' as http;
+// ignore_for_file: file_names
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:http/http.dart' as http;
 
 // Source
 import 'package:shop_order/utils/GSColors.dart';
@@ -160,11 +162,12 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                   Row(
                     children: [
                       CountryCodePicker(
+                        enabled: false,
                         onChanged: print,
                         initialSelection: 'VN',
                         favorite: const ['+84', 'Vietnam'],
                         showCountryOnly: true,
-                        showOnlyCountryWhenClosed: false,
+                        showOnlyCountryWhenClosed: true,
                         alignLeft: false,
                       ),
                       AppTextField(
@@ -249,11 +252,11 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                       focusedBorder: const UnderlineInputBorder(
                           borderSide: BorderSide(color: primaryColor)),
                       labelStyle: secondaryTextStyle(size: 14),
-                      labelText: "Confirm Password",
+                      labelText: "Xác nhận mật khẩu",
                     ),
                     validator: (val) {
                       if (val.isEmptyOrNull) {
-                        return "Please enter confirm password";
+                        return "Vui lòng nhập mật khẩu";
                       }
                       if (passwordController.text !=
                           confirmPasswordController.text) {
@@ -265,11 +268,9 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                   50.height,
                   gsAppButton(
                     context,
-                    'Tạo Tài Khoán',
+                    'Tạo Tài Khoản',
                     () {
-                      // validate
-
-                      const GSLoginScreen().launch(context);
+                      register(context);
                     },
                   ),
                 ],
@@ -281,4 +282,9 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
       ),
     );
   }
+}
+
+register(context) async {
+  // validate
+  // const GSLoginScreen().launch(context);
 }

@@ -14,6 +14,7 @@ import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
 import 'package:shop_order/utils/AppConstants.dart';
+import 'package:shop_order/model/GSModel.dart';
 
 // Redirect
 import 'package:shop_order/screens/GSAccountScreen.dart';
@@ -56,12 +57,31 @@ class GSEditProfileScreenState extends State<GSEditProfileScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username')!;
     String password = prefs.getString('password')!;
-    var data = await getUserInfo(username, password);
+    if (prefs.containsKey('user_info')) {
+      String userInfo = prefs.getString('user_info')!;
+      try {
+        var data = jsonDecode(userInfo);
+        nameController.text = data['fullname'];
+        emailController.text = data['email'];
+        phoneController.text = data['phone'];
+        addressController.text = data['address'];
+      } catch (e) {
+        toast(e.toString());
+      }
+    } else {
+      var data = await getUserInfo(username, password);
+      if (data != null) {
+        nameController.text = data[0].fullname;
+        emailController.text = data[0].email;
+        phoneController.text = data[0].phone;
+        addressController.text = data[0].address;
+      }
+    }
     setState(() {
-      nameController.text = data[0].fullname;
-      emailController.text = data[0].email;
-      phoneController.text = data[0].phone;
-      addressController.text = data[0].address;
+      nameController.text = nameController.text;
+      emailController.text = emailController.text;
+      phoneController.text = phoneController.text;
+      addressController.text = addressController.text;
     });
   }
 

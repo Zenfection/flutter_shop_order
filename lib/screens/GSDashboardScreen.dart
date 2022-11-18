@@ -80,6 +80,15 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
     });
   }
 
+  Future refresh() async {
+    listTopDiscount = await getTopDiscount(10);
+    listTopRanking = await getTopRanking(10);
+    setState(() {
+      listTopDiscount = listTopDiscount;
+      listTopRanking = listTopRanking;
+    });
+  }
+
   @override
   void dispose() {
     //pageController.dispose();
@@ -126,105 +135,110 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
             ],
           ),
         ),
-        body: ListView(
-          shrinkWrap: true,
-          physics: const ClampingScrollPhysics(),
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 60,
-                  padding: const EdgeInsets.only(left: 16, right: 8),
-                  decoration: boxDecorationWithRoundedCorners(
-                    borderRadius: radius(8),
-                    backgroundColor: appStore.isDarkModeOn
-                        ? scaffoldSecondaryDark
-                        : Colors.grey[50]!,
-                  ),
-                  child: Row(
-                    children: [
-                      TextField(
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          hintText: "Tìm kiếm sản phẩm",
-                          hintStyle:
-                              secondaryTextStyle(size: 18, color: Colors.grey),
+        body: RefreshIndicator(
+          onRefresh: refresh,
+          child: ListView(
+            shrinkWrap: true,
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 60,
+                    padding: const EdgeInsets.only(left: 16, right: 8),
+                    decoration: boxDecorationWithRoundedCorners(
+                      borderRadius: radius(8),
+                      backgroundColor: appStore.isDarkModeOn
+                          ? scaffoldSecondaryDark
+                          : Colors.grey[50]!,
+                    ),
+                    child: Row(
+                      children: [
+                        TextField(
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: "Tìm kiếm sản phẩm",
+                            hintStyle: secondaryTextStyle(
+                                size: 18, color: Colors.grey),
+                          ),
+                        ).expand(),
+                        const IconButton(
+                          icon: Icon(Icons.search),
+                          onPressed: null, //! đang phát triển
                         ),
-                      ).expand(),
-                      const IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: null, //! đang phát triển
-                      ),
+                      ],
+                    ),
+                  ).paddingOnly(left: 16, right: 16, top: 16),
+                  16.height,
+                  SizedBox(
+                    height: 240,
+                    width: context.width(),
+                    child: PageView.builder(
+                      pageSnapping: false,
+                      itemCount: sliderList.length,
+                      controller: pageController,
+                      onPageChanged: (int index) =>
+                          setState(() => currentIndexPage = index),
+                      itemBuilder: (_, index) {
+                        return Image.asset(
+                          sliderList[index].image.validate(),
+                          fit: BoxFit.cover,
+                          //height: 240,
+                          width: context.width(),
+                        ).cornerRadiusWithClipRRect(4).paddingRight(16);
+                      },
+                    ),
+                  ),
+                  8.height,
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    width: context.width(),
+                    child: DotIndicator(
+                      currentDotSize: 20,
+                      dotSize: 10,
+                      pageController: pageController,
+                      pages: sliderList,
+                      indicatorColor: primaryColor,
+                      unselectedIndicatorColor: Colors.grey,
+                    ),
+                  ),
+                  16.height,
+                  GSCategoryListComponent(categoryList)
+                      .paddingOnly(left: 16, right: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Giảm Giá Nhiều", style: boldTextStyle(size: 18)),
+                      Text("Xem Thêm",
+                              style:
+                                  boldTextStyle(color: primaryColor, size: 16))
+                          .onTap(() {
+                        GSCategoryListDetailsScreen().launch(context);
+                      })
                     ],
-                  ),
-                ).paddingOnly(left: 16, right: 16, top: 16),
-                16.height,
-                SizedBox(
-                  height: 240,
-                  width: context.width(),
-                  child: PageView.builder(
-                    pageSnapping: false,
-                    itemCount: sliderList.length,
-                    controller: pageController,
-                    onPageChanged: (int index) =>
-                        setState(() => currentIndexPage = index),
-                    itemBuilder: (_, index) {
-                      return Image.asset(
-                        sliderList[index].image.validate(),
-                        fit: BoxFit.cover,
-                        //height: 240,
-                        width: context.width(),
-                      ).cornerRadiusWithClipRRect(4).paddingRight(16);
-                    },
-                  ),
-                ),
-                8.height,
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  width: context.width(),
-                  child: DotIndicator(
-                    currentDotSize: 20,
-                    dotSize: 10,
-                    pageController: pageController,
-                    pages: sliderList,
-                    indicatorColor: primaryColor,
-                    unselectedIndicatorColor: Colors.grey,
-                  ),
-                ),
-                16.height,
-                GSCategoryListComponent(categoryList)
-                    .paddingOnly(left: 16, right: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Giảm Giá Nhiều", style: boldTextStyle(size: 18)),
-                    Text("Xem Thêm",
-                            style: boldTextStyle(color: primaryColor, size: 16))
-                        .onTap(() {
-                      GSCategoryListDetailsScreen().launch(context);
-                    })
-                  ],
-                ).paddingOnly(left: 16, right: 16, top: 16),
-                8.height,
-                GSRecommendedListComponent(listTopDiscount),
-                8.height,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Đánh Giá Cao", style: boldTextStyle(size: 18)),
-                    Text("Xem Thêm",
-                            style: boldTextStyle(color: primaryColor, size: 16))
-                        .onTap(() {
-                      GSCategoryListDetailsScreen().launch(context);
-                    })
-                  ],
-                ).paddingOnly(left: 16, right: 16),
-                8.height,
-                GSRecommendedListComponent(listTopRanking),
-              ],
-            ).paddingBottom(16),
-          ],
+                  ).paddingOnly(left: 16, right: 16, top: 16),
+                  8.height,
+                  GSRecommendedListComponent(listTopDiscount),
+                  8.height,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("Đánh Giá Cao", style: boldTextStyle(size: 18)),
+                      Text("Xem Thêm",
+                              style:
+                                  boldTextStyle(color: primaryColor, size: 16))
+                          .onTap(() {
+                        GSCategoryListDetailsScreen().launch(context);
+                      })
+                    ],
+                  ).paddingOnly(left: 16, right: 16),
+                  8.height,
+                  GSRecommendedListComponent(listTopRanking),
+                ],
+              ).paddingBottom(16),
+            ],
+          ),
         ),
       ),
     );

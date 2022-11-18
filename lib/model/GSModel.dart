@@ -8,6 +8,24 @@ class User {
   late String address;
 
   User({this.fullname, this.email, this.phone = '', this.address = ''});
+
+  Map<String, dynamic> toJson() {
+    return {
+      'fullname': fullname,
+      'email': email,
+      'phone': phone,
+      'address': address,
+    };
+  }
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      fullname: json['fullname'],
+      email: json['email'],
+      phone: json['phone'],
+      address: json['address'],
+    );
+  }
 }
 
 class SliderModel {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // Source
 import 'package:shop_order/main/utils/AppColors.dart';
@@ -68,6 +69,8 @@ class GSCartScreenState extends State<GSCartScreen> {
     String username = prefs.getString('username')!;
     String password = prefs.getString('password')!;
     recommendedList = await getUserCart(username, password);
+    prefs.remove('user_cart');
+    prefs.setString('user_cart', jsonEncode(recommendedList));
 
     setState(() {
       recommendedList = recommendedList;
@@ -191,7 +194,8 @@ class GSCartScreenState extends State<GSCartScreen> {
                                       .onTap(() {
                                     setState(() {
                                       int id = mData.id.validate();
-                                      addProductCart(recommendedList, id, 1);
+                                      addProductCart(recommendedList, id,
+                                          1); // bất đồng bộ
                                       totalCount = mData.qty! + 1;
                                       mData.qty = totalCount;
                                       calculate();
@@ -251,7 +255,35 @@ class GSCartScreenState extends State<GSCartScreen> {
   }
 }
 
-addProductCart(List<GSRecommendedModel> List, int id, int qty) async {
+reloadCart(String username, String password) async {
+  final prefs = await SharedPreferences.getInstance();
+
+  List<GSRecommendedModel> ListCartUser = await getUserCart(username, password);
+  prefs.remove('user_cart');
+  prefs.setString('user_cart', jsonEncode(ListCartUser));
+}
+
+// reloadCartTemp(List<GSRecommendedModel> listCart, int id, int qty) {
+//   for (var element in listCart) {
+//     if (element.id == id) {
+//       element.qty = element.qty! - qty;
+//       return listCart;
+//     }
+//   }
+// }
+
+loadToastError(message) {
+  Fluttertoast.showToast(
+      msg: message,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0);
+}
+
+addProductCart(List<GSRecommendedModel> listCart, int id, int qty) async {
   final prefs = await SharedPreferences.getInstance();
   String username = prefs.getString('username') ?? '';
   String password = prefs.getString('password') ?? '';
@@ -269,8 +301,7 @@ addProductCart(List<GSRecommendedModel> List, int id, int qty) async {
     var data = json.decode(utf8.decode(response.bodyBytes));
     if (data['status'] == 'success') {
       prefs.remove('user_cart');
-      prefs.setString('user_cart', jsonEncode(List));
-      log(data['message']);
+      prefs.setString('user_cart', jsonEncode(listCart));
     } else if (data['status'] == 'failed') {
       await Fluttertoast.showToast(
           msg: data['message'],
@@ -281,12 +312,12 @@ addProductCart(List<GSRecommendedModel> List, int id, int qty) async {
           textColor: Colors.white,
           fontSize: 16.0);
     } else {
-      return false;
+      loadToastError(data['message']);
     }
   }
 }
 
-deleteProductCart(List<GSRecommendedModel> List, int id, int qty) async {
+deleteProductCart(List<GSRecommendedModel> listCart, int id, int qty) async {
   final prefs = await SharedPreferences.getInstance();
   String username = prefs.getString('username') ?? '';
   String password = prefs.getString('password') ?? '';
@@ -301,10 +332,9 @@ deleteProductCart(List<GSRecommendedModel> List, int id, int qty) async {
     var data = json.decode(utf8.decode(response.bodyBytes));
     if (data['status'] == 'success') {
       prefs.remove('user_cart');
-      prefs.setString('user_cart', jsonEncode(List));
-      return true;
+      prefs.setString('user_cart', jsonEncode(listCart));
     } else {
-      return false;
+      loadToastError(data['message']);
     }
   }
 }

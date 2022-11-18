@@ -1,5 +1,6 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,9 +17,10 @@ import 'package:shop_order/main/store/AppStore.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
 
 // Redirect
-// import 'GSAddressScreen.dart';
+import '../model/GSModel.dart';
 import 'GSEditProfileScreen.dart';
 import 'GSLoginScreen.dart';
+// import 'GSAddressScreen.dart';
 // import '../temp/screens/GSHelpScreen.dart';
 // import '../temp/screens/GSPromoScreen.dart';
 
@@ -35,6 +37,7 @@ class GSAccountScreenState extends State<GSAccountScreen> {
   File? profileImage;
   String fullname = '';
   String email = '';
+  late List user;
 
   @override
   void initState() {
@@ -46,10 +49,24 @@ class GSAccountScreenState extends State<GSAccountScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username')!;
     String password = prefs.getString('password')!;
-    var data = await getUserInfo(username, password);
+    if (prefs.containsKey('user_info')) {
+      String userInfo = prefs.getString('user_info')!;
+      try {
+        var data = jsonDecode(userInfo);
+        fullname = data['fullname'];
+        email = data['email'];
+        // userList.addAll(data.map((e) => User.fromJson(e)).toList());
+      } catch (e) {
+        toast(e.toString());
+      }
+    } else {
+      var data = await getUserInfo(username, password);
+      fullname = data[0].fullname!;
+      email = data[0].email!;
+    }
     setState(() {
-      fullname = data[0].fullname;
-      email = data[0].email;
+      fullname = fullname;
+      email = email;
     });
   }
 
@@ -104,6 +121,21 @@ class GSAccountScreenState extends State<GSAccountScreen> {
     });
   }
 
+  Future refresh() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String username = prefs.getString('username')!;
+    String password = prefs.getString('password')!;
+
+    var data = await getUserInfo(username, password);
+    fullname = data[0].fullname!;
+    email = data[0].email!;
+
+    setState(() {
+      fullname = fullname;
+      email = email;
+    });
+  }
+
   @override
   void setState(fn) {
     if (mounted) super.setState(fn);
@@ -111,77 +143,82 @@ class GSAccountScreenState extends State<GSAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor:
-            appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
-        elevation: 1,
-        centerTitle: false,
-        automaticallyImplyLeading: false,
-        title: Text("Tài khoản", style: boldTextStyle(size: 20)),
-      ),
-      body: SingleChildScrollView(
-        physics: const ClampingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            profileImage != null
-                ? Image.file(profileImage!,
-                        width: 110, height: 110, fit: BoxFit.cover)
-                    .cornerRadiusWithClipRRect(60)
-                    .center()
-                : Image.asset(
-                    profileImage != null ? profileImage as String : avatarLogo,
-                    width: 110,
-                    height: 110,
-                    fit: BoxFit.fill,
-                  ).cornerRadiusWithClipRRect(60).center().paddingTop(16),
-            8.height,
-            Text(fullname, style: boldTextStyle(size: 18)),
-            Text(email, style: secondaryTextStyle()),
-            16.height,
-            AppButton(
-              color: primaryColor,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.edit_outlined, color: Colors.white),
-                  8.width,
-                  Text("Thay đổi Avatar",
-                      style: boldTextStyle(color: Colors.white, size: 14)),
-                ],
-              ).paddingOnly(left: 16, right: 16),
-              onTap: () {
-                dialogWidget(context);
-              },
-            ),
-            40.height,
-            profileWidget(
-                    "Thông tin cá nhân", "Chứa các thông tin cơ bản của bạn")
-                .onTap(() {
-              const GSEditProfileScreen().launch(context);
-            }),
-            // profileWidget("Promos", "Latest Promos from us").onTap(() {
-            //   GSPromoScreen().launch(context);
-            // }),
-            profileWidget("Địa chỉ giao hàng",
-                    "Tổng hợp các địa chỉ giao hàng của bạn")
-                .onTap(() {
-              // GSAddressScreen().launch(context);
-            }),
-            // profileWidget(
-            //         "Terms, Privacy, & Policy", "Things you may want to know")
-            //     .onTap(() {}),
-            // profileWidget("Help & Support", "Get support from Us").onTap(() {
-            //   GSHelpScreen().launch(context);
-            // }),
-            8.height,
-            profileWidget("Đăng xuất", "Thoát khỏi tài khoản").onTap(() {
-              logout(context);
-            }),
-          ],
+    return RefreshIndicator(
+      onRefresh: refresh,
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor:
+              appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
+          elevation: 1,
+          centerTitle: false,
+          automaticallyImplyLeading: false,
+          title: Text("Tài khoản", style: boldTextStyle(size: 20)),
         ),
-      ).paddingBottom(16),
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              profileImage != null
+                  ? Image.file(profileImage!,
+                          width: 110, height: 110, fit: BoxFit.cover)
+                      .cornerRadiusWithClipRRect(60)
+                      .center()
+                  : Image.asset(
+                      profileImage != null
+                          ? profileImage as String
+                          : avatarLogo,
+                      width: 110,
+                      height: 110,
+                      fit: BoxFit.fill,
+                    ).cornerRadiusWithClipRRect(60).center().paddingTop(16),
+              8.height,
+              Text(fullname, style: boldTextStyle(size: 18)),
+              Text(email, style: secondaryTextStyle()),
+              16.height,
+              AppButton(
+                color: primaryColor,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.edit_outlined, color: Colors.white),
+                    8.width,
+                    Text("Thay đổi Avatar",
+                        style: boldTextStyle(color: Colors.white, size: 14)),
+                  ],
+                ).paddingOnly(left: 16, right: 16),
+                onTap: () {
+                  dialogWidget(context);
+                },
+              ),
+              40.height,
+              profileWidget(
+                      "Thông tin cá nhân", "Chứa các thông tin cơ bản của bạn")
+                  .onTap(() {
+                const GSEditProfileScreen().launch(context);
+              }),
+              // profileWidget("Promos", "Latest Promos from us").onTap(() {
+              //   GSPromoScreen().launch(context);
+              // }),
+              profileWidget("Địa chỉ giao hàng",
+                      "Tổng hợp các địa chỉ giao hàng của bạn")
+                  .onTap(() {
+                // GSAddressScreen().launch(context);
+              }),
+              // profileWidget(
+              //         "Terms, Privacy, & Policy", "Things you may want to know")
+              //     .onTap(() {}),
+              // profileWidget("Help & Support", "Get support from Us").onTap(() {
+              //   GSHelpScreen().launch(context);
+              // }),
+              8.height,
+              profileWidget("Đăng xuất", "Thoát khỏi tài khoản").onTap(() {
+                logout(context);
+              }),
+            ],
+          ),
+        ).paddingBottom(16),
+      ),
     );
   }
 }
@@ -191,6 +228,14 @@ logout(var context) async {
   AppStore appStore = AppStore();
   prefs.remove('username');
   prefs.remove('password');
+  prefs.remove('user_cart');
+  prefs.remove('order_pending');
+  prefs.remove('order_shipping');
+  prefs.remove('order_delivered');
+  prefs.remove('order_cancelled');
+  prefs.remove('user_info');
+  prefs.remove('isLogged');
+
   appStore.isLoggedIn = false;
   const GSLoginScreen().launch(context, isNewTask: true);
 }

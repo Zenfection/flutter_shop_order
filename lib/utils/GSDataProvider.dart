@@ -41,12 +41,12 @@ Future getTotalMoney($user) async {
 
 Future getUserInfo(String username, String password) async {
   var url = Uri.parse('$baseUrl/get_user_info');
+  List<User> list = [];
   var response =
       await http.post(url, body: {'username': username, 'password': password});
   if (response.statusCode == 200) {
     var data = json.decode(utf8.decode(response.bodyBytes));
     if (data['status'] == 'success') {
-      List<User> list = [];
       var value = data['data'];
       String fullname = value['fullname'];
       String email = value['email'];
@@ -55,10 +55,11 @@ Future getUserInfo(String username, String password) async {
 
       list.add(User(
           fullname: fullname, email: email, phone: phone, address: address));
-      return list;
-    } else {
-      return [];
     }
+    final prefs = await SharedPreferences.getInstance();
+    String encode = jsonEncode(list[0]);
+    prefs.setString('user_info', encode);
+    return list.toList();
   }
 }
 
@@ -292,10 +293,10 @@ Future getOrderStatus(String username, String password, String status) async {
   });
   if (response.statusCode == 200) {
     var data = json.decode(utf8.decode(response.bodyBytes));
+    List<GSMyOrderModel> list = [];
     if (data['status'] == 'success' && data['data'][0] != false) {
       var listData = data['data'];
       int countListData = listData.length;
-      List<GSMyOrderModel> list = [];
       for (int i = 0; i < countListData; i++) {
         var value = listData[i];
 
@@ -328,10 +329,8 @@ Future getOrderStatus(String username, String password, String status) async {
       }
       final prefs = await SharedPreferences.getInstance();
       prefs.setString('order_$status', jsonEncode(list));
-      return list;
-    } else {
-      return [];
     }
+    return list;
   }
 }
 

@@ -226,13 +226,19 @@ class GSRecommendationDetailsScreenState
 addProductCart(int id, int qty) async {
   final prefs = await SharedPreferences.getInstance();
   String username = prefs.getString('username') ?? '';
-  var uri = Uri.parse('$baseUrl/add_product_cart/$username/$id/$qty');
-  var response = await http.get(uri);
+  String password = prefs.getString('password') ?? '';
+  var uri = Uri.parse('$baseUrl/add_product_cart');
+  var response = await http.post(uri, body: {
+    'username': username,
+    'password': password,
+    'id': id.toString(),
+    'qty': qty.toString(),
+  });
   if (response.statusCode == 200) {
-    var data = json.decode(response.body);
-    if (data['status'] == 'update' || data['status'] == 'insert') {
-      await Fluttertoast.showToast(
-          msg: "Thêm vào giỏ hàng thành công",
+    var data = json.decode(utf8.decode(response.bodyBytes));
+    if (data['status'] == 'success') {
+      Fluttertoast.showToast(
+          msg: data['message'],
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
           timeInSecForIosWeb: 1,
@@ -240,8 +246,8 @@ addProductCart(int id, int qty) async {
           textColor: Colors.white,
           fontSize: 16.0);
     } else if (data['status'] == 'soldout') {
-      await Fluttertoast.showToast(
-          msg: "Sản phẩm đã hết hàng",
+      Fluttertoast.showToast(
+          msg: data['message'],
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
           timeInSecForIosWeb: 1,
@@ -249,8 +255,8 @@ addProductCart(int id, int qty) async {
           textColor: Colors.white,
           fontSize: 16.0);
     } else {
-      await Fluttertoast.showToast(
-          msg: "Thêm vào giỏ hàng thất bại",
+      Fluttertoast.showToast(
+          msg: data['message'],
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.TOP,
           timeInSecForIosWeb: 1,
