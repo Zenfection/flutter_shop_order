@@ -1,4 +1,4 @@
-package com.example.hoc_flutter
+package com.zenfection.shop
 
 import io.flutter.embedding.android.FlutterActivity
 

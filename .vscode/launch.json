@@ -18,18 +18,18 @@
             ]
         },
         {
-            "name": "hoc_flutter",
+            "name": "flutter_shop_order",
             "request": "launch",
             "type": "dart"
         },
         {
-            "name": "hoc_flutter (profile mode)",
+            "name": "flutter_shop_order (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "hoc_flutter (release mode)",
+            "name": "flutter_shop_order (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
