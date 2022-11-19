@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import 'package:shop_order/main.dart';
+// import 'package:shop_order/main.dart';
 
 // Source
 import 'package:shop_order/model/GSModel.dart';
@@ -362,19 +362,19 @@ Future getOrderStatus(String username, String password, String status) async {
 //   return list;
 // }
 
-List<GSNotificationModel> getNotificationList() {
-  List<GSNotificationModel> list = [];
-  list.add(GSNotificationModel(
-      title: "You got 10% off from your last order",
-      subTitle: "The gift can you can use in next order",
-      heading: "Promo"));
-  list.add(GSNotificationModel(
-      title: "Waiting for payment",
-      subTitle: "The gift can you can use in next order",
-      heading: "Transaction"));
-  list.add(GSNotificationModel(
-      title: "Rate your order experience",
-      subTitle: "The gift can you can use in next order",
-      heading: "Info"));
-  return list;
-}
+// List<GSNotificationModel> getNotificationList() {
+//   List<GSNotificationModel> list = [];
+//   list.add(GSNotificationModel(
+//       title: "You got 10% off from your last order",
+//       subTitle: "The gift can you can use in next order",
+//       heading: "Promo"));
+//   list.add(GSNotificationModel(
+//       title: "Waiting for payment",
+//       subTitle: "The gift can you can use in next order",
+//       heading: "Transaction"));
+//   list.add(GSNotificationModel(
+//       title: "Rate your order experience",
+//       subTitle: "The gift can you can use in next order",
+//       heading: "Info"));
+//   return list;
+// }

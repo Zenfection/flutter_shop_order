@@ -9,12 +9,12 @@ import 'package:fluttertoast/fluttertoast.dart';
 // Source
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/main/utils/AppWidget.dart';
-import 'package:shop_order/main/store/AppStore.dart';
 import 'package:shop_order/model/GSModel.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/AppConstants.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
 import 'package:shop_order/utils/GSImages.dart';
+import 'package:shop_order/main.dart';
 
 // Redicrect
 import 'GSCheckOutScreen.dart';
@@ -33,8 +33,6 @@ class GSCartScreenState extends State<GSCartScreen> {
   List<GSRecommendedModel> recommendedList = [];
   int totalCount = 0;
   int totalAmount = 0;
-  AppStore appStore = AppStore();
-
   @override
   void initState() {
     super.initState();
@@ -45,6 +43,7 @@ class GSCartScreenState extends State<GSCartScreen> {
     final prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username')!;
     String password = prefs.getString('password')!;
+
     if (prefs.containsKey('user_cart')) {
       String userCart = prefs.getString('user_cart')!;
       try {
@@ -102,10 +101,9 @@ class GSCartScreenState extends State<GSCartScreen> {
           backgroundColor:
               appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
           elevation: 1,
-          centerTitle: false,
+          centerTitle: true,
           automaticallyImplyLeading: false,
-          title:
-              Center(child: Text("Giỏ Hàng", style: boldTextStyle(size: 20))),
+          title: Text("Giỏ Hàng", style: boldTextStyle(size: 20)),
         ),
         body: Column(
           children: [

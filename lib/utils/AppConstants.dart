@@ -1,6 +1,10 @@
+// ignore_for_file: constant_identifier_names, file_names
+
 const MainAppName = 'Zen Shop Order';
 // const baseUrl = 'https://cloneshoporder.local/api'; //! Debug Local
 const baseUrl = 'https://shop.zenfection.com/api';
+const IsLoggedInSocialLogin = 'IsLoggedInSocialLogin';
+const DarkModePref = 'DarkModePref';
 
 //region Constants
 // const ThemeTypeFullApp = 'ThemeTypeFullApp';
@@ -10,15 +14,13 @@ const baseUrl = 'https://shop.zenfection.com/api';
 //endregion
 
 //region SharedPreference Keys
-const StringExampleSharedPref = 'StringExampleSharedPref';
-const IntExampleSharedPref = 'IntExampleSharedPref';
-const BoolExampleSharedPref = 'BoolExampleSharedPref';
+// const StringExampleSharedPref = 'StringExampleSharedPref';
+// const IntExampleSharedPref = 'IntExampleSharedPref';
+// const BoolExampleSharedPref = 'BoolExampleSharedPref';
 
-const IsLoggedInSocialLogin = 'IsLoggedInSocialLogin';
-const UserName = 'name';
-const UserEmail = 'email';
-const UserPhoto = 'photo';
+// const UserName = 'name';
+// const UserEmail = 'email';
+// const UserPhoto = 'photo';
 
-const NotificationPref = 'NotificationPref';
-const DarkModePref = 'DarkModePref';
+// const NotificationPref = 'NotificationPref';
 //endregion

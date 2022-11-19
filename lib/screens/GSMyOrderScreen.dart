@@ -44,7 +44,7 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen>
         backgroundColor:
             appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
         elevation: 0,
-        centerTitle: false,
+        centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text("Đơn Hàng", style: boldTextStyle(size: 20)),
       ),

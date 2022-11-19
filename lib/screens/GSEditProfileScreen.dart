@@ -14,7 +14,7 @@ import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
 import 'package:shop_order/utils/AppConstants.dart';
-import 'package:shop_order/model/GSModel.dart';
+// import 'package:shop_order/model/GSModel.dart';
 
 // Redirect
 import 'package:shop_order/screens/GSAccountScreen.dart';

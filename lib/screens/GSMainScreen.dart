@@ -47,7 +47,7 @@ class GSMainScreenState extends State<GSMainScreen> {
 
   init() async {
     setStatusBarColor(appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
-        statusBarIconBrightness: Brightness.light);
+        statusBarIconBrightness: Brightness.dark);
   }
 
   @override

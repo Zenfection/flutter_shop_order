@@ -1,3 +1,4 @@
+// ignore_for_file: file_names
 // import 'package:flutter/material.dart';
 // import 'package:shop_order/model/GSModel.dart';
 // import 'package:shop_order/temp/screens/GSPromoDetailsScreen.dart';

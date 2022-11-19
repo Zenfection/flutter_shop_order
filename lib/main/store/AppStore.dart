@@ -35,11 +35,6 @@ abstract class AppStoreBase with Store {
   }
 
   @action
-  List<GSRecommendedModel> getListDiscount() {
-    return listTopDiscount;
-  }
-
-  @action
   Future<void> toggleDarkMode({bool? value}) async {
     isDarkModeOn = value.validate(value: !isDarkModeOn);
 
@@ -50,7 +45,8 @@ abstract class AppStoreBase with Store {
       cardColor = scaffoldSecondaryDark;
 
       shadowColorGlobal = Colors.white12;
-      setStatusBarColor(cardColor, statusBarIconBrightness: Brightness.light);
+      setStatusBarColor(Colors.black,
+          statusBarIconBrightness: Brightness.light);
 
       defaultLoaderBgColorGlobal = Colors.black;
     } else {

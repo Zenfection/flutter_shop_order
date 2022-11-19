@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
@@ -7,12 +9,11 @@ import 'package:crypto/crypto.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 // Source
-import 'package:shop_order/main/store/AppStore.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/AppConstants.dart';
-// import 'package:shop_order/main.dart';
+import 'package:shop_order/main.dart';
 
 // Redirection
 import 'package:shop_order/screens/GSRegisterScreen.dart';
@@ -31,7 +32,6 @@ class GSLoginScreen extends StatefulWidget {
 
 class GSLoginScreenState extends State<GSLoginScreen> {
   // appstore
-  AppStore appStore = AppStore();
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -180,6 +180,16 @@ class GSLoginScreenState extends State<GSLoginScreen> {
   }
 
   Future loginUser(String username, String password) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        barrierLabel: "Đang đăng nhập...",
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+
     // ignore: unnecessary_brace_in_string_interps
     //*  http post
     String md5password = md5.convert(utf8.encode(password)).toString();

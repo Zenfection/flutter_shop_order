@@ -1,8 +1,10 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/screens/GSOrderProgressDetailsScreen.dart';
+// import 'package:shop_order/model/GSModel.dart';
+// import 'package:shop_order/screens/GSOrderProgressDetailsScreen.dart';
+// import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSColors.dart';
-import 'package:shop_order/utils/GSConstants.dart';
 import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';

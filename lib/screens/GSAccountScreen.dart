@@ -11,13 +11,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/utils/GSWidgets.dart';
-import 'package:shop_order/main.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
-import 'package:shop_order/main/store/AppStore.dart';
 import 'package:shop_order/utils/GSDataProvider.dart';
+import 'package:shop_order/main.dart';
 
 // Redirect
-import '../model/GSModel.dart';
 import 'GSEditProfileScreen.dart';
 import 'GSLoginScreen.dart';
 // import 'GSAddressScreen.dart';
@@ -150,7 +148,7 @@ class GSAccountScreenState extends State<GSAccountScreen> {
           backgroundColor:
               appStore.isDarkModeOn ? scaffoldColorDark : Colors.white,
           elevation: 1,
-          centerTitle: false,
+          centerTitle: true,
           automaticallyImplyLeading: false,
           title: Text("Tài khoản", style: boldTextStyle(size: 20)),
         ),
@@ -225,7 +223,6 @@ class GSAccountScreenState extends State<GSAccountScreen> {
 
 logout(var context) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  AppStore appStore = AppStore();
   prefs.remove('username');
   prefs.remove('password');
   prefs.remove('user_cart');
@@ -236,6 +233,5 @@ logout(var context) async {
   prefs.remove('user_info');
   prefs.remove('isLogged');
 
-  appStore.isLoggedIn = false;
   const GSLoginScreen().launch(context, isNewTask: true);
 }

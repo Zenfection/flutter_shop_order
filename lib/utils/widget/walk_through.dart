@@ -1,6 +1,7 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-
 import '../GSColors.dart';
 
 Widget gsAppButton(BuildContext context, String title, Function onTap) {

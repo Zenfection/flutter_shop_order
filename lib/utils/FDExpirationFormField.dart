@@ -1,7 +1,9 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 class ExpirationFormField extends StatefulWidget {
-  ExpirationFormField({
+  const ExpirationFormField({
     this.key,
     required this.controller,
     this.decoration,
@@ -29,7 +31,8 @@ class _ExpirationFormFieldState extends State<ExpirationFormField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      keyboardType: TextInputType.numberWithOptions(signed: false, decimal: false),
+      keyboardType:
+          const TextInputType.numberWithOptions(signed: false, decimal: false),
       controller: widget.controller,
       decoration: widget.decoration,
       style: widget.style,
@@ -41,28 +44,37 @@ class _ExpirationFormFieldState extends State<ExpirationFormField> {
           switch (value.length) {
             case 0:
               widget.controller.text = "MM/YY";
-              widget.controller.selection = TextSelection.collapsed(offset: 0);
+              widget.controller.selection =
+                  const TextSelection.collapsed(offset: 0);
               break;
             case 1:
               widget.controller.text = "${value}M/YY";
-              widget.controller.selection = TextSelection.collapsed(offset: 1);
+              widget.controller.selection =
+                  const TextSelection.collapsed(offset: 1);
               break;
             case 2:
               widget.controller.text = "$value/YY";
-              widget.controller.selection = TextSelection.collapsed(offset: 2);
+              widget.controller.selection =
+                  const TextSelection.collapsed(offset: 2);
               break;
             case 3:
-              widget.controller.text = "${value.substring(0, 2)}/${value.substring(2)}Y";
-              widget.controller.selection = TextSelection.collapsed(offset: 4);
+              widget.controller.text =
+                  "${value.substring(0, 2)}/${value.substring(2)}Y";
+              widget.controller.selection =
+                  const TextSelection.collapsed(offset: 4);
               break;
             case 4:
-              widget.controller.text = "${value.substring(0, 2)}/${value.substring(2, 4)}";
-              widget.controller.selection = TextSelection.collapsed(offset: 5);
+              widget.controller.text =
+                  "${value.substring(0, 2)}/${value.substring(2, 4)}";
+              widget.controller.selection =
+                  const TextSelection.collapsed(offset: 5);
               break;
           }
           if (value.length > 4) {
-            widget.controller.text = "${value.substring(0, 2)}/${value.substring(2, 4)}";
-            widget.controller.selection = TextSelection.collapsed(offset: 5);
+            widget.controller.text =
+                "${value.substring(0, 2)}/${value.substring(2, 4)}";
+            widget.controller.selection =
+                const TextSelection.collapsed(offset: 5);
           }
         });
       },

@@ -4,9 +4,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
-import 'package:timeline_tile/timeline_tile.dart';
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:timeline_tile/timeline_tile.dart';
+
 // Source
 import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
@@ -74,22 +75,22 @@ class GSOrderProgressDetailsScreenState
     }
   }
 
-  Widget orderStatusWidget(OrderStatusWidget orderStatusWidget) {
-    return TimelineTile(
-      alignment: TimelineAlign.manual,
-      lineXY: 0.1,
-      isFirst: true,
-      indicatorStyle: const IndicatorStyle(
-        width: 20,
-        color: primaryColor,
-        padding: EdgeInsets.all(8),
-      ),
-      endChild: orderStatusWidget,
-      beforeLineStyle: const LineStyle(
-        color: primaryColor,
-      ),
-    );
-  }
+  // Widget orderStatusWidget(OrderStatusWidget orderStatusWidget) {
+  //   return TimelineTile(
+  //     alignment: TimelineAlign.manual,
+  //     lineXY: 0.1,
+  //     isFirst: true,
+  //     indicatorStyle: const IndicatorStyle(
+  //       width: 20,
+  //       color: primaryColor,
+  //       padding: EdgeInsets.all(8),
+  //     ),
+  //     endChild: orderStatusWidget,
+  //     beforeLineStyle: const LineStyle(
+  //       color: primaryColor,
+  //     ),
+  //   );
+  // }
 
   @override
   void setState(fn) {

@@ -1,8 +1,8 @@
 // ignore_for_file: file_names
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Source
 import 'package:shop_order/utils/GSColors.dart';
@@ -11,15 +11,15 @@ import 'package:shop_order/utils/GSDataProvider.dart';
 import 'package:shop_order/utils/GSImages.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/model/GSModel.dart';
-import 'package:shop_order/main/store/AppStore.dart';
-// import 'package:shop_order/main.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shop_order/main.dart';
 
 import 'package:shop_order/component/GSRecommendedListComponent.dart';
 import 'package:shop_order/component/GSCategoryListComponent.dart';
 
 // Redicrect
 import 'GSCategoryListDetailsScreen.dart';
-import 'GSNotificationScreen.dart';
+// import '../temp/screens/GSNotificationScreen.dart';
 
 class GSDashboardScreen extends StatefulWidget {
   static String tag = '/GSDashboardScreen';
@@ -31,11 +31,14 @@ class GSDashboardScreen extends StatefulWidget {
 }
 
 class GSDashboardScreenState extends State<GSDashboardScreen> {
-  AppStore appStore = AppStore();
   List<SliderModel> sliderList = getSliderList();
   List<CategoryModel> categoryList = getCategoryList();
   List<GSRecommendedModel> listTopDiscount = [];
   List<GSRecommendedModel> listTopRanking = [];
+
+  final IconData _iconDark = FontAwesomeIcons.moon;
+  final IconData _iconLight = FontAwesomeIcons.lightbulb;
+  bool? _isDark = false;
 
   int currentIndexPage = 0;
   PageController pageController =
@@ -49,6 +52,7 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
 
   init() async {
     final prefs = await SharedPreferences.getInstance();
+    _isDark = prefs.getBool('DarkModePref')!;
     if (prefs.containsKey('top_discount')) {
       String topDiscount = prefs.getString('top_discount')!;
       try {
@@ -119,17 +123,20 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
                   Image.asset(avatarLogo,
                       height: 50, width: 50, fit: BoxFit.cover),
                   8.width,
-                  Text(GSAppName, style: boldTextStyle()),
+                  Text(zenAppName, style: boldTextStyle()),
                 ],
               ).paddingLeft(16),
               IconButton(
-                icon: Icon(Icons.notifications_none_sharp,
-                    color: appStore.isDarkModeOn
-                        ? iconSecondaryColor
-                        : Colors.black),
+                icon: FaIcon(
+                  _isDark! ? _iconDark : _iconLight,
+                  color: _isDark! ? Colors.white : Colors.black,
+                ),
                 onPressed: () {
-                  hideKeyboard(context);
-                  const GSNotificationScreen().launch(context);
+                  darktoggle(context);
+                  setState(() {
+                    _isDark = !_isDark!;
+                  });
+                  // const GSNotificationScreen().launch(context);
                 },
               ),
             ],
@@ -242,5 +249,13 @@ class GSDashboardScreenState extends State<GSDashboardScreen> {
         ),
       ),
     );
+  }
+
+  void darktoggle(BuildContext context) async {
+    hideKeyboard(context);
+    final prefs = await SharedPreferences.getInstance();
+    bool? isDarkModeOn = prefs.getBool('DarkModePref');
+    prefs.setBool('DarkModePref', !isDarkModeOn!);
+    appStore.toggleDarkMode(value: !isDarkModeOn);
   }
 }

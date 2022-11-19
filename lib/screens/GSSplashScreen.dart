@@ -72,7 +72,7 @@ class GSSplashScreenState extends State<GSSplashScreen>
                 child: Image.asset(appLogo,
                     height: 140, width: 180, fit: BoxFit.cover)),
             8.height,
-            Text(GSAppName,
+            Text(zenAppName,
                 style: boldTextStyle(size: 18, color: primaryColor)),
           ],
         ).center(),
