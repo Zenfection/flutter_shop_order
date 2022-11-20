@@ -44,12 +44,12 @@ dependencies:
   flutter_mobx: ^2.0.6+4
   google_fonts: ^3.0.1
   flutter_slidable: ^2.0.0
-  dots_indicator: ^2.1.0
   font_awesome_flutter: ^10.2.1
   flutter_format_money_vietnam: ^0.0.2
   shared_preferences: ^2.0.15
   fluttertoast: ^8.1.1
   
+  # dots_indicator: ^2.1.0
   # cupertino_icons: ^1.0.2
   # timeline_tile: ^2.0.0
   # cloud_firestore: ^4.0.4
