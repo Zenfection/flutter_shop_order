@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 // Source
 import 'package:shop_order/main/utils/AppColors.dart';
@@ -63,7 +62,7 @@ class GSCartScreenState extends State<GSCartScreen> {
     });
   }
 
-  Future refesh() async {
+  Future refresh() async {
     final prefs = await SharedPreferences.getInstance();
     String username = prefs.getString('username')!;
     String password = prefs.getString('password')!;
@@ -95,7 +94,7 @@ class GSCartScreenState extends State<GSCartScreen> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: refesh,
+      onRefresh: refresh,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor:

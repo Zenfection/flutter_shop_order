@@ -58,8 +58,8 @@ class ExampleItemWidget extends StatelessWidget {
   final Function onTap;
   final bool showTrailing;
 
-  ExampleItemWidget(this.tabBarType,
-      {required this.onTap, this.showTrailing = false});
+  const ExampleItemWidget(this.tabBarType,
+      {super.key, required this.onTap, this.showTrailing = false});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +90,7 @@ BoxDecoration boxDecoration(
     color: bgColor ?? appBarBackgroundColor,
     boxShadow: showShadow
         ? defaultBoxShadow(shadowColor: shadowColorGlobal)
-        : [BoxShadow(color: Colors.transparent)],
+        : [const BoxShadow(color: Colors.transparent)],
     border: Border.all(color: color),
     borderRadius: BorderRadius.all(Radius.circular(radius)),
   );

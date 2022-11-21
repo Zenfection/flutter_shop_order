@@ -182,7 +182,7 @@ class GSLoginScreenState extends State<GSLoginScreen> {
   Future loginUser(String username, String password) async {
     showDialog(
         context: context,
-        barrierDismissible: false,
+        barrierDismissible: true,
         barrierLabel: "Đang đăng nhập...",
         builder: (BuildContext context) {
           return const Center(

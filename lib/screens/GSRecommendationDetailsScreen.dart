@@ -19,6 +19,8 @@ import 'package:shop_order/utils/GSWidgets.dart';
 import 'package:shop_order/main/utils/AppColors.dart';
 import 'package:shop_order/main/utils/AppWidget.dart';
 
+import '../utils/GSDataProvider.dart';
+
 // Redicrect
 
 // ignore: must_be_immutable
@@ -245,6 +247,9 @@ addProductCart(int id, int qty) async {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
+      prefs.remove('user_cart');
+      List<GSRecommendedModel> cartList = await getUserCart(username, password);
+      prefs.setString('user_cart', jsonEncode(cartList));
     } else if (data['status'] == 'soldout') {
       Fluttertoast.showToast(
           msg: data['message'],

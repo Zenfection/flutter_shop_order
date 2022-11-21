@@ -83,7 +83,6 @@ class GSCategoryListDetailsScreenState
     String category = widget.categoryName!;
     category = getCategoryCode(category);
 
-    final prefs = await SharedPreferences.getInstance();
     categoryDetailsList = await getCategoryProduct(category);
     setState(() {});
   }

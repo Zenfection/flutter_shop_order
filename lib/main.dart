@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:device_preview/device_preview.dart';
+// import 'package:device_preview/device_preview.dart'; //!Debug
 // import 'package:flutter/foundation.dart';
 // import 'package:flutter_mobx/flutter_mobx.dart';
+
 // Source
 import 'package:shop_order/main/store/AppStore.dart';
 import 'package:shop_order/screens/GSMainScreen.dart';
@@ -102,6 +103,7 @@ class MyApp extends StatelessWidget {
       ),
     );
 
+    //! Debug
     // return MaterialApp(
     //   title: 'Zen Shop Order',
     //   useInheritedMediaQuery: true,
@@ -111,7 +113,7 @@ class MyApp extends StatelessWidget {
     //   darkTheme: ThemeData.dark(),
     //   debugShowCheckedModeBanner: false, //? xoá logo Debug
 
-    //   home: GSWalkThroughScreen(),
+    //   appStore.isLoggedIn ? const GSMainScreen() : GSWalkThroughScreen(),
     // );
   }
 }

@@ -11,7 +11,7 @@ import 'package:shop_order/main/utils/AppColors.dart';
 
 // Redirect
 import 'package:shop_order/screens/GSRecommendationDetailsScreen.dart';
-import '../../../main.dart';
+import 'package:shop_order/main.dart';
 // import 'package:shop_order/temp/screens/GSCategoryDetailsScreen.dart';
 
 // ignore: must_be_immutable

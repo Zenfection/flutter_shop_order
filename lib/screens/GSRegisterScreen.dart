@@ -1,9 +1,15 @@
 // ignore_for_file: file_names
 
+import 'dart:convert';
+
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:http/http.dart' as http;
+import 'package:crypto/crypto.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shop_order/utils/AppConstants.dart';
 
 // Source
 import 'package:shop_order/utils/GSColors.dart';
@@ -29,18 +35,35 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   TextEditingController emailController = TextEditingController();
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController lastNameController = TextEditingController();
+  TextEditingController fullnameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+
   FocusNode emailNode = FocusNode();
-  FocusNode firstNameNode = FocusNode();
-  FocusNode lastNameNode = FocusNode();
+  FocusNode fullnameNode = FocusNode();
+  FocusNode usernameNode = FocusNode();
   FocusNode phoneNode = FocusNode();
   FocusNode passwordNode = FocusNode();
   FocusNode confirmPasswordNode = FocusNode();
+
   bool showPassword = false;
+
+  //Add list error
+  final String _emailErr = 'Email không hợp lệ';
+  late String _fullnameErr = 'Họ tên không hợp lệ';
+  late String _usernameErr = 'Tài khoản không hợp lệ';
+  late String _phoneErr = 'Số điện thoại không hợp lệ';
+  late String _passwordErr = 'Mật khẩu không hợp lệ';
+  late final String _confirmPasswordErr = 'Mật khẩu không khớp';
+
+  final bool _emailInvalid = false;
+  bool _fullnameInvalid = false;
+  bool _usernameInvalid = false;
+  bool _phoneInvalid = false;
+  bool _passwordInvalid = false;
+  final bool _confirmPasswordInvalid = false;
 
   @override
   void initState() {
@@ -109,54 +132,45 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
               child: Column(
                 children: [
                   AppTextField(
-                    autoFocus: false,
                     controller: emailController,
                     textFieldType: TextFieldType.EMAIL,
-                    decoration: InputDecoration(
-                      enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor)),
-                      labelText: 'Địa chỉ Email',
-                      labelStyle: secondaryTextStyle(size: 14),
+                    decoration: inputDecoration(
+                      label: 'Email',
+                      error: _emailInvalid ? _emailErr : null,
                     ),
                     focus: emailNode,
-                    nextFocus: firstNameNode,
+                    nextFocus: fullnameNode,
                     keyboardType: TextInputType.text,
+                    errorThisFieldRequired: 'Email không được để trống',
+                    errorInvalidEmail: "Không đúng định dạng email",
                   ),
                   16.height,
                   AppTextField(
                     autoFocus: false,
-                    controller: firstNameController,
+                    controller: fullnameController,
                     textFieldType: TextFieldType.NAME,
-                    decoration: InputDecoration(
-                      enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor)),
-                      labelText: 'Họ và Tên',
-                      labelStyle: secondaryTextStyle(size: 14),
+                    decoration: inputDecoration(
+                      label: 'Họ và tên',
+                      error: _fullnameInvalid ? _fullnameErr : null,
                     ),
-                    focus: firstNameNode,
-                    nextFocus: lastNameNode,
+                    focus: fullnameNode,
+                    nextFocus: usernameNode,
                     keyboardType: TextInputType.text,
+                    errorThisFieldRequired: 'Họ Tên không được để trống',
                   ),
                   16.height,
                   AppTextField(
                     autoFocus: false,
-                    controller: lastNameController,
-                    textFieldType: TextFieldType.NAME,
-                    decoration: InputDecoration(
-                      enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey)),
-                      focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: primaryColor)),
-                      labelText: 'Last Name',
-                      labelStyle: secondaryTextStyle(size: 14),
+                    controller: usernameController,
+                    textFieldType: TextFieldType.USERNAME,
+                    decoration: inputDecoration(
+                      label: 'Tên tài khoản',
+                      error: _usernameInvalid ? _usernameErr : null,
                     ),
-                    focus: lastNameNode,
+                    focus: usernameNode,
                     nextFocus: phoneNode,
                     keyboardType: TextInputType.text,
+                    errorThisFieldRequired: 'Tên tài khoản không được để trống',
                   ),
                   20.height,
                   Row(
@@ -178,14 +192,12 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                         nextFocus: passwordNode,
                         textAlign: TextAlign.start,
                         keyboardType: TextInputType.phone,
-                        decoration: InputDecoration(
-                          enabledBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: grey)),
-                          focusedBorder: const UnderlineInputBorder(
-                              borderSide: BorderSide(color: primaryColor)),
-                          hintText: "Số điện thoại",
-                          hintStyle: secondaryTextStyle(size: 14),
+                        decoration: inputDecoration(
+                          label: 'Số điện thoại',
+                          error: _phoneInvalid ? _phoneErr : null,
                         ),
+                        errorThisFieldRequired:
+                            "Số điện thoại không được để trống",
                       ).expand()
                     ],
                   ),
@@ -205,10 +217,11 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                           showPassword = !showPassword;
                           setState(() {});
                         },
-                        child: Icon(
+                        child: FaIcon(
+                            size: 20,
                             showPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                                ? FontAwesomeIcons.eye
+                                : FontAwesomeIcons.eyeSlash,
                             color: primaryColor),
                       ),
                       enabledBorder: const UnderlineInputBorder(
@@ -217,6 +230,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                           borderSide: BorderSide(color: primaryColor)),
                       labelStyle: secondaryTextStyle(size: 14),
                       labelText: "Mật Khẩu",
+                      errorText: _passwordInvalid ? _passwordErr : null,
                     ),
                     validator: (val) {
                       if (val.isEmptyOrNull) {
@@ -241,10 +255,11 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                           showPassword = !showPassword;
                           setState(() {});
                         },
-                        child: Icon(
+                        child: FaIcon(
+                            size: 20,
                             showPassword
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                                ? FontAwesomeIcons.eye
+                                : FontAwesomeIcons.eyeSlash,
                             color: primaryColor),
                       ),
                       enabledBorder: const UnderlineInputBorder(
@@ -253,6 +268,8 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                           borderSide: BorderSide(color: primaryColor)),
                       labelStyle: secondaryTextStyle(size: 14),
                       labelText: "Xác nhận mật khẩu",
+                      errorText:
+                          _confirmPasswordInvalid ? _confirmPasswordErr : null,
                     ),
                     validator: (val) {
                       if (val.isEmptyOrNull) {
@@ -260,7 +277,7 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                       }
                       if (passwordController.text !=
                           confirmPasswordController.text) {
-                        return "Password do not match";
+                        return "Mật khẩu không khớp";
                       }
                       return null;
                     },
@@ -270,7 +287,12 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
                     context,
                     'Tạo Tài Khoản',
                     () {
-                      register(context);
+                      String email = emailController.text;
+                      String fullname = fullnameController.text;
+                      String username = usernameController.text;
+                      String phone = phoneController.text;
+                      String password = passwordController.text;
+                      validate(email, fullname, username, phone, password);
                     },
                   ),
                 ],
@@ -282,9 +304,107 @@ class GSRegisterScreenState extends State<GSRegisterScreen> {
       ),
     );
   }
-}
 
-register(context) async {
-  // validate
-  // const GSLoginScreen().launch(context);
+  void loadFlutterToast(String message) {
+    Fluttertoast.showToast(
+        msg: message,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
+
+  Future registerUser(String email, String fullname, String username,
+      String phone, String password) async {
+    // show dialog đang đăng ký..
+    showDialog(
+        context: context,
+        barrierDismissible: true,
+        barrierLabel: "Đang đăng ký...",
+        builder: (BuildContext context) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        });
+
+    //* http post
+    String md5password = md5.convert(utf8.encode(password)).toString();
+    // String baseUrl = 'http://localhost:7316/api';
+    var uri = Uri.parse('$baseUrl/register');
+    var response = await http.post(uri,
+        body: (<String, String>{
+          'email': email,
+          'fullname': fullname,
+          'username': username,
+          'phone': phone,
+          'password': md5password,
+        }));
+    if (response.statusCode == 200) {
+      var data = json.decode(utf8.decode(response.bodyBytes));
+      if (data['status'] == 'success') {
+        loadFlutterToast(data['message']);
+        goLoginScreen();
+      } else {
+        _usernameInvalid = true;
+        _usernameErr = data['message'];
+        loadFlutterToast(data['message']);
+      }
+    } else {
+      loadFlutterToast("Lỗi API Server");
+    }
+  }
+
+  void goLoginScreen() => {
+        finish(context),
+        const GSLoginScreen().launch(context),
+      };
+
+  void validate(String email, String fullname, String username, String phone,
+      String password) {
+    setState(() {
+      if (fullname.length < 6) {
+        _fullnameInvalid = true;
+        _fullnameErr = "Họ tên phải lớn hơn 6 ký tự";
+      } else if (fullname.length > 50) {
+        _fullnameInvalid = true;
+        _fullnameErr = "Họ tên phải nhỏ hơn 50 ký tự";
+      } else {
+        _fullnameInvalid = false;
+      }
+
+      if (username.length < 4) {
+        _usernameInvalid = true;
+        _usernameErr = 'Tên tài khoản phải lớn hơn 6 ký tự';
+      } else if (username.length > 50) {
+        _usernameInvalid = true;
+        _usernameErr = 'Tên tài khoản phải nhỏ hơn 50 ký tự';
+      } else {
+        _usernameInvalid = false;
+      }
+
+      if (phone.length != 10) {
+        _phoneInvalid = true;
+        _phoneErr = 'Số điện phải có 11 số';
+      } else {
+        _phoneInvalid = false;
+      }
+
+      if (password.length < 6) {
+        _passwordInvalid = true;
+        _passwordErr = 'Mật khẩu phải lớn hơn 6 ký tự';
+      } else {
+        _passwordInvalid = false;
+      }
+
+      if (!_usernameInvalid &&
+          !_fullnameInvalid &&
+          !_phoneInvalid &&
+          !_passwordInvalid &&
+          formKey.currentState!.validate()) {
+        registerUser(email, fullname, username, phone, password);
+      }
+    });
+  }
 }

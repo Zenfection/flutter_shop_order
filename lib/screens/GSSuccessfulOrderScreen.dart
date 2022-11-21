@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_order/model/GSModel.dart';
 // Source
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/utils/GSImages.dart';
@@ -105,6 +106,7 @@ class GSSuccessfulOrderScreenState extends State<GSSuccessfulOrderScreen> {
                 40.height,
                 gsAppButton(context, "Theo dõi đơn hàng", () {
                   finish(context);
+                  GSMyOrderModel();
                 }),
               ],
             ),

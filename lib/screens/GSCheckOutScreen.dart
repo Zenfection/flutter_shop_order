@@ -4,10 +4,10 @@ import 'dart:convert';
 
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:nb_utils/nb_utils.dart';
 import 'package:flutter_format_money_vietnam/flutter_format_money_vietnam.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // Source
 import 'package:shop_order/main/utils/AppColors.dart';
@@ -279,7 +279,7 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
             ),
           ).expand(),
           gsAppButton(context, "Đặt Hàng", () {
-            const GSSuccessfulOrderScreen().launch(context);
+            checkOut(context);
           })
         ],
       ),
@@ -289,15 +289,49 @@ class GSCheckOutScreenState extends State<GSCheckOutScreen> {
 
 checkOut(var context) async {
   final prefs = await SharedPreferences.getInstance();
-  String? user = prefs.getString('username');
-  var uri = Uri.parse('$baseUrl/checkout/$user');
-  var response = await http.get(uri);
+  String? username = prefs.getString('username');
+  String? password = prefs.getString('password');
+  var uri = Uri.parse('$baseUrl/checkout');
+  var response = await http.post(uri, body: {
+    'username': username,
+    'password': password,
+  });
+
   if (response.statusCode == 200) {
     var data = json.decode(utf8.decode(response.bodyBytes));
     if (data['status'] == 'success') {
+      Fluttertoast.showToast(
+          msg: data['message'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+
+      prefs.remove('order_pending');
+      List<GSMyOrderModel> pendingOrderList =
+          await getOrderStatus(username!, password!, 'pending');
+      prefs.setString('order_pending', jsonEncode(pendingOrderList));
       const GSSuccessfulOrderScreen().launch(context);
     } else {
-      toast(data['status']);
+      Fluttertoast.showToast(
+          msg: data['message'],
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.TOP,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }
+  } else {
+    Fluttertoast.showToast(
+        msg: "Lỗi kết nối API",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 }

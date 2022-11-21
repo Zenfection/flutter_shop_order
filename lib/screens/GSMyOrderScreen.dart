@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shop_order/component/GSOrderPendingComponent.dart';
 import 'package:shop_order/utils/GSColors.dart';
 import 'package:shop_order/main.dart';
@@ -30,6 +31,15 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen>
     //
   }
 
+  reload() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.remove('order_pending');
+    prefs.remove('order_shipping');
+    prefs.remove('order_delivered');
+    prefs.remove('order_cancel');
+    //reload page
+  }
+
   @override
   void setState(fn) {
     if (mounted) super.setState(fn);
@@ -46,7 +56,25 @@ class GSMyOrderScreenState extends State<GSMyOrderScreen>
         elevation: 0,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: Text("Đơn Hàng", style: boldTextStyle(size: 20)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Đơn Hàng', style: boldTextStyle(size: 20)),
+            IconButton(
+              icon: FaIcon(
+                FontAwesomeIcons.arrowsRotate,
+                color: appStore.isDarkModeOn ? Colors.white : Colors.black,
+              ),
+              onPressed: () {
+                setState(() {
+                  reload();
+                });
+                // const GSNotificationScreen().launch(context);
+              },
+            ),
+          ],
+        ),
+        // title: Text("Đơn Hàng", style: boldTextStyle(size: 20)),
       ),
       body: DefaultTabController(
         initialIndex: 0,
